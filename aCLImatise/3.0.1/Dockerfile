@@ -19,4 +19,5 @@ RUN apt-get -y -m update && \
 # argparse2tool
 ###################################################################################################################################################################################################
 
-RUN pip3 install aclimatise && python -m spacy download en
+RUN pip3 install aclimatise
+RUN python -m spacy download en
