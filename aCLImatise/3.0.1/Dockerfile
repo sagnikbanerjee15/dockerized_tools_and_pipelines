@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -y -m update && \
 	apt-get install -y wget build-essential time zlib1g-dev libncurses5-dev liblzma-dev libbz2-dev libcurl4-openssl-dev  && \
-	apt-get --quiet install --yes sudo time python3 less locales locales-all perl python3 rsync zip libidn11 fuse wget curl make python3-pip && \
+	apt-get --quiet install --yes sudo time python3 less locales locales-all perl python rsync zip libidn11 fuse wget curl make python-pip && \
 	apt-get clean
 	
 
@@ -19,5 +19,5 @@ RUN apt-get -y -m update && \
 # argparse2tool
 ###################################################################################################################################################################################################
 
-RUN pip3 install aclimatise
-RUN python3 -m spacy download en
+RUN pip install aclimatise
+RUN python -m spacy download en
