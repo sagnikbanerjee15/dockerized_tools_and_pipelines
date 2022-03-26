@@ -21,3 +21,4 @@ RUN apt-get -y -m update && \
 
 RUN pip3 install numpy ruffus
 RUN pip3 install argparse2tool
+RUN pip3 install matplotlib
