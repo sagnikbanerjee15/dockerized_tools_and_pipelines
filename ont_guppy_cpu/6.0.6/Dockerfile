@@ -1,5 +1,5 @@
 ###################################################################################################################################################################################################
-# ont_guppy_gpu
+# ont_guppy_cpu
 ###################################################################################################################################################################################################
 
 FROM ubuntu
@@ -25,9 +25,9 @@ RUN apt-get autoclean autoremove
 # ONT GUPPY
 ###################################################################################################################################################################################################
 
-ARG ONT_GUPPY_GPU_VERSION=6.0.6
-RUN mkdir -p /softwares && cd /softwares && wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_${ONT_GUPPY_GPU_VERSION}_linux64.tar.gz
-RUN cd /softwares && tar -xvzf ont-guppy-cpu_${ONT_GUPPY_GPU_VERSION}_linux64.tar.gz
+ARG ONT_GUPPY_CPU_VERSION=6.0.6
+RUN mkdir -p /softwares && cd /softwares && wget https://mirror.oxfordnanoportal.com/software/analysis/ont-guppy-cpu_${ONT_GUPPY_CPU_VERSION}_linux64.tar.gz
+RUN cd /softwares && tar -xvzf ont-guppy-cpu_${ONT_GUPPY_CPU_VERSION}_linux64.tar.gz
 
-ENV PATH=$PATH:/softwares/ont-guppy/bin:/softwares/ont-guppy/data:/softwares/ont-guppy/lib
+ENV PATH=$PATH:/softwares/ont-guppy-cpu/bin:/softwares/ont-guppy-cpu/data:/softwares/ont-guppy-cpu/lib
 
