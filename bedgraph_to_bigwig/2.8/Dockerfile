@@ -3,6 +3,8 @@
 #######################################################################################################################################################################
 
 FROM ubuntu
+MAINTAINER Sagnik Banerjee
+LABEL org.opencontainers.image.source https://github.com/sagnikbanerjee15/dockerized_tools_and_pipelines
 
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
