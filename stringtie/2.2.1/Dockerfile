@@ -26,12 +26,11 @@ RUN apt-get install -y libz-dev ncurses-dev liblzma-dev libbz2-dev libcurl4-open
 #######################################################################################################################################################################
 
 ARG VERSION=2.2.1
-RUN mkdir -p /opt/tools
 
-RUN mkdir /softwares && \
+RUN mkdir -p /softwares && \
   wget -c http://ccb.jhu.edu/software/stringtie/dl/stringtie-${VERSION}.Linux_x86_64.tar.gz && \
   tar -zxvf stringtie-${VERSION}.Linux_x86_64.tar.gz && \
-  cp stringtie-${version}.Linux_x86_64/stringtie /usr/local/bin && \
+  cp stringtie-${VERSION}.Linux_x86_64/stringtie /usr/local/bin && \
   rm -rf stringtie* && \
   apt-get remove --purge --yes \
               wget && \

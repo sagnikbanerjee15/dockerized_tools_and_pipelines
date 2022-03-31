@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+##############################################################################################################################
+# Command - ./createDockerImages
+# Program will navigate to each directory, create docker packages and push it to the docker hub
+##############################################################################################################################
+from argparse import RawTextHelpFormatter
+
+import os
+import glob
+import argparse
+import sys
+
+
+def parseCommandLineArguments():
+
+    parser = argparse.ArgumentParser( prog = "compile_mapping_statistics", description = "Compiles a list of summary statistics and graphs from the alignment", formatter_class = RawTextHelpFormatter )
+
+    parser.add_argument( "--docker_hub", "-d", help = "Enter the name of the docker hub", default = "ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines" )
+
+    # Optional arguments
+    return parser.parse_args()
+
+
+def main():
+    """
+    """
+    options = parseCommandLineArguments()
+
+    tools_with_version_and_dockerfiles = {}
+    tools = os.listdir( "." )
+    for tool in tools:
+        # print( tool, os.path.isdir( tool ) )
+        if "DS_Store" in tool or tool == ".git":continue
+        if os.path.isdir( tool ) == False:continue
+        if os.path.exists( f"{tool}/Dockerfile" ) == True:
+            tools_with_version_and_dockerfiles[tool] = {"latest":f"{tool}/Dockerfile"}
+        else:
+            versions = os.listdir( f"{tool}" )
+            tools_with_version_and_dockerfiles[tool] = {}
+            for version in versions:
+                if "DS_Store" in version:continue
+                tools_with_version_and_dockerfiles[tool][version] = f"{tool}/{version}/Dockerfile"
+
+    print( tools_with_version_and_dockerfiles )
+    sys.stdout.flush()
+    current_directory = os.getcwd()
+    for tool in tools_with_version_and_dockerfiles:
+        for version in tools_with_version_and_dockerfiles[tool]:
+            cmd = f"docker build -t {options.docker_hub}/{tool.lower()}:{version} . > docker_build.output 2> docker_build.error"
+            if version != "latest":
+                os.chdir( f"{current_directory}/{tool}/{version}" )
+            else:
+                os.chdir( f"{current_directory}/{tool}" )
+            print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
+            sys.stdout.flush()
+            os.system( cmd )
+            cmd = f"docker push {options.docker_hub}/{tool.lower()}:{version}"
+            os.system( cmd )
+            os.chdir( f"{current_directory}" )
+
+
+if __name__ == "__main__":
+    main()
