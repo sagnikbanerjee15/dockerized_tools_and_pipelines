@@ -42,8 +42,6 @@ def main():
                 if "DS_Store" in version:continue
                 tools_with_version_and_dockerfiles[tool][version] = f"{tool}/{version}/Dockerfile"
 
-    print( tools_with_version_and_dockerfiles )
-    sys.stdout.flush()
     current_directory = os.getcwd()
     for tool in tools_with_version_and_dockerfiles:
         for version in tools_with_version_and_dockerfiles[tool]:
