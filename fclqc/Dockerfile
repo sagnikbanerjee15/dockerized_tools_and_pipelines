@@ -28,3 +28,5 @@ RUN apt-get clean all
 RUN mkdir -p /softwares && cd /softwares
 RUN cd /softwares && git clone https://github.com/Minhyeok01/FCLQC.git
 RUN cd /softwares/FCLQC && cargo build --release
+
+ENV PATH:$PATH:/softwares/FCLQC/target/release
