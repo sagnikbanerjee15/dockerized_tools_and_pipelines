@@ -24,6 +24,7 @@ ARG VERSION=1.3
 
 RUN mkdir /softwares && cd /softwares && \
 	wget https://github.com/lh3/seqtk/archive/refs/tags/v${VERSION}.tar.gz && \
+	tar -zvxf v${VERSION}.tar.gz && \
 	cd seqtk-${VERSION} && \
 	make
 
