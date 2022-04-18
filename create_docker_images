@@ -45,7 +45,7 @@ def main():
     current_directory = os.getcwd()
     for tool in tools_with_version_and_dockerfiles:
         for version in tools_with_version_and_dockerfiles[tool]:
-            cmd = f"docker build -t {options.docker_hub}/{tool.lower()}:{version} . > docker_build.output 2> docker_build.error"
+
             if version != "latest":
                 print( f"Changing to {current_directory}/{tool}/{version}" )
                 sys.stdout.flush()
@@ -54,8 +54,8 @@ def main():
                 print( f"Changing to {current_directory}/{tool}" )
                 sys.stdout.flush()
                 os.chdir( f"{current_directory}/{tool}" )
-            cmd = f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}"
-            print( cmd )
+            cmd = f"docker build -t {options.docker_hub}/{tool.lower()}:{version} . > docker_build.output 2> docker_build.error"
+            print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
             sys.stdout.flush()
             os.system( cmd )
             cmd = f"docker push {options.docker_hub}/{tool.lower()}:{version}"
