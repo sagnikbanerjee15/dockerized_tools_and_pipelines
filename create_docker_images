@@ -47,8 +47,12 @@ def main():
         for version in tools_with_version_and_dockerfiles[tool]:
             cmd = f"docker build -t {options.docker_hub}/{tool.lower()}:{version} . > docker_build.output 2> docker_build.error"
             if version != "latest":
+                print( f"Changing to {current_directory}/{tool}/{version}" )
+                sys.stdout.flush()
                 os.chdir( f"{current_directory}/{tool}/{version}" )
             else:
+                print( f"Changing to {current_directory}/{tool}" )
+                sys.stdout.flush()
                 os.chdir( f"{current_directory}/{tool}" )
             cmd = f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}"
             print( cmd )
