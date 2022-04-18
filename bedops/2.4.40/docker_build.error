@@ -1,0 +1,22 @@
+#1 [internal] load build definition from Dockerfile
+#1 sha256:d0e03187c278b0989197b94d491c23205bf352e0ae7519e80bf4deb608953d34
+#1 transferring dockerfile: 1.33kB done
+#1 DONE 0.0s
+
+#2 [internal] load .dockerignore
+#2 sha256:65522a0250758e4036d278b59465b7b985186cfb0c0aceb2bcfff078df501580
+#2 transferring context: 2B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/ubuntu:latest
+#3 sha256:8c6bdfb121a69744f11ffa1fedfc68ec20085c2dcce567aac97a3ff72e53502d
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/library/ubuntu
+#4 sha256:0a5f349eacf4edfd2fc1577c637ef52a2ed3280d9d5c0ab7f2e4c4052e7d6c9f
+#4 CACHED
+
+#5 [2/2] RUN apt-get -y -m update && 	apt-get install -y wget build-essential time zlib1g-dev libncurses5-dev liblzma-dev libbz2-dev libcurl4-openssl-dev  && 	apt-get --quiet install --yes sudo time python3 less locales locales-all perl python3 rsync zip libidn11 fuse wget curl make python3-pip && 	apt-get clean && 	mkdir -p /softwares/bedops && 	cd /softwares && 	chmod 777 -R bedops && 	cd bedops && 	wget https://github.com/bedops/bedops/releases/download/v2.4.40/bedops_linux_x86_64-v2.4.40.tar.bz2 && 	tar -xf bedops_linux_x86_64-v2.4.40.tar.bz2 && 	rm bedops_linux_x86_64-v2.4.40.tar.bz2
+#5 sha256:3ead69a125238b8dd586970188a7fa20ff06769ecdcf45300da96afe03600d30
+#5 CANCELED
+context canceled
