@@ -55,8 +55,8 @@ def main():
             sys.stdout.flush()
             os.system( cmd )
             cmd = f"docker push {options.docker_hub}/{tool.lower()}:{version}"
-            os.system( cmd )
             print( cmd )
+            os.system( cmd )
             sys.stdout.flush()
             os.chdir( f"{current_directory}" )
 
