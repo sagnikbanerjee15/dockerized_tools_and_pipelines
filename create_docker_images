@@ -39,7 +39,7 @@ def main():
             versions = os.listdir( f"{tool}" )
             tools_with_version_and_dockerfiles[tool] = {}
             for version in versions:
-                if "DS_Store" in version:continue
+                if "DS_Store" in version or ".output" in version or "error" in version:continue
                 tools_with_version_and_dockerfiles[tool][version] = f"{tool}/{version}/Dockerfile"
 
     current_directory = os.getcwd()
@@ -50,11 +50,14 @@ def main():
                 os.chdir( f"{current_directory}/{tool}/{version}" )
             else:
                 os.chdir( f"{current_directory}/{tool}" )
-            print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
+            cmd = f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}"
+            print( cmd )
             sys.stdout.flush()
             os.system( cmd )
             cmd = f"docker push {options.docker_hub}/{tool.lower()}:{version}"
             os.system( cmd )
+            print( cmd )
+            sys.stdout.flush()
             os.chdir( f"{current_directory}" )
 
 
