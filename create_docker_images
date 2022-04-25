@@ -16,7 +16,8 @@ def parseCommandLineArguments():
 
     parser = argparse.ArgumentParser( prog = "compile_mapping_statistics", description = "Compiles a list of summary statistics and graphs from the alignment", formatter_class = RawTextHelpFormatter )
 
-    parser.add_argument( "--docker_hub", "-d", help = "Enter the name of the docker hub", default = "ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines" )
+    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = "ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines", nargs = '+' )
+    parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
     return parser.parse_args()
@@ -43,6 +44,7 @@ def main():
                 tools_with_version_and_dockerfiles[tool][version] = f"{tool}/{version}/Dockerfile"
 
     current_directory = os.getcwd()
+
     for tool in tools_with_version_and_dockerfiles:
         for version in tools_with_version_and_dockerfiles[tool]:
 
@@ -54,7 +56,7 @@ def main():
                 print( f"Changing to {current_directory}/{tool}" )
                 sys.stdout.flush()
                 os.chdir( f"{current_directory}/{tool}" )
-            cmd = f"docker build -t {options.docker_hub}/{tool.lower()}:{version} . > docker_build.output 2> docker_build.error"
+            cmd = f"docker build -t {options.docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
             print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
             sys.stdout.flush()
             os.system( cmd )
