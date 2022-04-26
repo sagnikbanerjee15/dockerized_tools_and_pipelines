@@ -20,6 +20,7 @@ def parseCommandLineArguments():
     parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
+    parser.add_argument( "--skip_these", "--skip_these", help = "Enter the list of tools to skip processing" )
     return parser.parse_args()
 
 
@@ -46,6 +47,7 @@ def main():
     current_directory = os.getcwd()
 
     for tool in tools_with_version_and_dockerfiles:
+        if tool in options.skip_these: continue
         for version in tools_with_version_and_dockerfiles[tool]:
 
             if version != "latest":
@@ -56,12 +58,14 @@ def main():
                 print( f"Changing to {current_directory}/{tool}" )
                 sys.stdout.flush()
                 os.chdir( f"{current_directory}/{tool}" )
-            cmd = f"docker build -t {options.docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
-            print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
-            sys.stdout.flush()
-            os.system( cmd )
-            cmd = f"docker push {options.docker_hub}/{tool.lower()}:{version}"
-            print( cmd )
+            for docker_hub in options.docker_hub:
+                cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
+                print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
+                sys.stdout.flush()
+                os.system( cmd )
+
+                cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
+                print( cmd )
             os.system( cmd )
             sys.stdout.flush()
             os.chdir( f"{current_directory}" )
