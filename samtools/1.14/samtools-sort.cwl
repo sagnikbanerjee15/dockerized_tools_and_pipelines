@@ -2,13 +2,13 @@ class: CommandLineTool
 cwlVersion: v1.0
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
-id: samtools_view
+id: samtools_sort
 baseCommand:
   - samtools
-  - view
+  - sort
 inputs:
   - id: input_alignment
-    type: File
+    type: File?
     inputBinding:
       position: 100
       shellQuote: false
@@ -25,36 +25,14 @@ inputs:
       position: 0
       prefix: '--output-fmt'
       shellQuote: false
-  - id: include_header
-    type: boolean?
-    inputBinding:
-      position: 0
-      prefix: '-h'
-      shellQuote: false
-  - id: only_header
-    type: boolean?
-    inputBinding:
-      position: 0
-      prefix: '-H'
-      shellQuote: false
-  - id: count_only
-    type: boolean?
-    inputBinding:
-      position: 0
-      prefix: '-c'
-      shellQuote: false
   - id: threads
     type: int?
     inputBinding:
       position: 0
       prefix: '-@'
       shellQuote: false
-  - id: reference
-    type: File?
-    inputBinding:
-      position: 0
-      prefix: '-T'
-      shellQuote: false
+  - id: sort_by_name
+    type: boolean?
 outputs:
   - id: output_bam
     type: File?
@@ -68,7 +46,7 @@ outputs:
     type: File?
     outputBinding:
       glob: '*cram'
-label: samtools view
+label: samtools sort
 arguments:
   - position: 0
     prefix: '-o'
@@ -79,29 +57,22 @@ arguments:
         if( inputs.output_format == "CRAM"){suffix='.cram'}
         if( inputs.output_format == "SAM"){suffix='.sam'}
         if( inputs.output_format == "BAM"){suffix='.bam'}
-        if(inputs.count_only==true ){ suffix=".counts"}
-        return inputs.input_alignment.nameroot + suffix
+        
+        if (inputs.sort_by_name)
+          return inputs.input_alignment.nameroot + ".sortedByName" + suffix
+        else
+          return inputs.input_alignment.nameroot + ".sortedByPos" + suffix
+      }
+  - position: 0
+    prefix: ''
+    shellQuote: false
+    valueFrom: |-
+      ${
+          if(inputs.sort_by_name) {return "-n"}
+          else {return ""}
       }
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
     dockerPull: 'ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines/samtools:1.14'
   - class: InlineJavascriptRequirement
-stdout: |-
-  ${
-    var suffix=".bam"
-    if( inputs.output_format === "CRAM"){suffix='.cram'}
-    if( inputs.output_format === "SAM"){suffix='.sam'}
-    if( inputs.output_format === "BAM"){suffix='.bam'}
-    if(inputs.count_only===true ){ suffix=".counts"}
-    return inputs.input_alignment.nameroot + suffix + ".output"
-  }
-stderr: |-
-  ${
-    var suffix=".bam"
-    if( inputs.output_format === "CRAM"){suffix='.cram'}
-    if( inputs.output_format === "SAM"){suffix='.sam'}
-    if( inputs.output_format === "BAM"){suffix='.bam'}
-    if(inputs.count_only===true ){ suffix=".counts"}
-    return inputs.input_alignment.nameroot + suffix + ".error"
-  }
