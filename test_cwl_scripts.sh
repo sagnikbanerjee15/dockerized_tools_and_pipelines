@@ -24,7 +24,7 @@ rm -rf pacbio.sam
 cwltool \
 --debug \
 samtools/${SAMTOOLS_VERSION}/samtools-sort.cwl \
---input_alignment sample_test_data/pacbio.bam \ 
+--input_alignment sample_test_data/pacbio.bam \
 --output_format SAM \
 --threads 10 \
 1> sample_test_data/samtools-sort-by-name.output \
