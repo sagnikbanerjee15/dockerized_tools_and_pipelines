@@ -17,7 +17,7 @@ samtools/${SAMTOOLS-VERSION}/samtools-view.cwl \
 1> sample_test_data/samtools-view-bam-to-sam.output \
 2> sample_test_data/samtools-view-bam-to-sam.error
 
-rm 576019_small_pacbio.sam
+rm -rf pacbio.sam
 
 # Samtools sort 
 
@@ -29,3 +29,5 @@ samtools/${SAMTOOLS-VERSION}/samtools-sort.cwl \
 --threads 10 \
 1> sample_test_data/samtools-sort-by-name.output \
 2> sample_test_data/samtools-sort-by-name.error
+
+rm -rf pacbio.sortedByPos.sam
