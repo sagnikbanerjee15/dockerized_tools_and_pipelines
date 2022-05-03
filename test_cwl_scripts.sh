@@ -6,7 +6,7 @@
 
 # Samtools view convert BAM to SAM format
 
-SAMTOOLS-VERSION=1.14
+export SAMTOOLS-VERSION=1.14
 
 cwltool \
 --debug \
