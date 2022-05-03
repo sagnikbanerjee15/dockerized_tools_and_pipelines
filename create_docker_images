@@ -15,7 +15,7 @@ import sys
 def parseCommandLineArguments():
 
     parser = argparse.ArgumentParser( prog = "create_docker_images", description = """Generates docker images and test out cwl scripts. Assumes that cwltool is pre-installed.
-    A single command is tested for each cwl script.
+    A few commands are tested for each cwl script.
     This is done to ensure that the command is working properly, not to test the entire extent of what the command can do.
     Please note that depending on what you provide as input your command may fail.""", formatter_class = RawTextHelpFormatter )
 
@@ -34,6 +34,7 @@ def main():
 
     tools_with_version_and_dockerfiles = {}
     tools = os.listdir( "." )
+    tools = [val for val in tools if "sample_test_data" not in val]
     for tool in tools:
         # print( tool, os.path.isdir( tool ) )
         if "DS_Store" in tool or tool == ".git":continue
@@ -69,8 +70,8 @@ def main():
 
                 cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
                 print( cmd )
-            os.system( cmd )
-            sys.stdout.flush()
+                os.system( cmd )
+                sys.stdout.flush()
             os.chdir( f"{current_directory}" )
 
 
