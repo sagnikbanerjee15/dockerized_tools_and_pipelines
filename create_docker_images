@@ -51,8 +51,6 @@ def main():
     current_directory = os.getcwd()
 
     os.system( f"mkdir -p {options.error_directory}" )
-    print( options.docker_hub )
-    sys.exit()
     for tool in tools_with_version_and_dockerfiles:
         if options.skip_these is not None and tool in options.skip_these: continue
         for version in tools_with_version_and_dockerfiles[tool]:
