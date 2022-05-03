@@ -8,6 +8,8 @@
 
 export SAMTOOLS_VERSION=1.14
 
+echo "Samtools view"
+
 cwltool \
 --debug \
 samtools/${SAMTOOLS_VERSION}/samtools-view.cwl \
@@ -20,6 +22,8 @@ samtools/${SAMTOOLS_VERSION}/samtools-view.cwl \
 rm -rf pacbio.sam
 
 # Samtools sort 
+
+echo "Samtools sort"
 
 cwltool \
 --debug \
