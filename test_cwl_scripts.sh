@@ -6,11 +6,11 @@
 
 # Samtools view convert BAM to SAM format
 
-export SAMTOOLS-VERSION=1.14
+export SAMTOOLS_VERSION=1.14
 
 cwltool \
 --debug \
-samtools/${SAMTOOLS-VERSION}/samtools-view.cwl \
+samtools/${SAMTOOLS_VERSION}/samtools-view.cwl \
 --input_alignment sample_test_data/pacbio.bam \
 --output_format SAM \
 --threads 10 \
@@ -23,7 +23,7 @@ rm -rf pacbio.sam
 
 cwltool \
 --debug \
-samtools/${SAMTOOLS-VERSION}/samtools-sort.cwl \
+samtools/${SAMTOOLS_VERSION}/samtools-sort.cwl \
 --input_alignment sample_test_data/pacbio.bam \ 
 --output_format SAM \
 --threads 10 \
