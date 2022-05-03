@@ -3,7 +3,7 @@
 #######################################################################################################################################################################
 
 FROM bioconda/bioconda-utils-build-env
-MAINTAINER Sagnik Banerjee <sagnikbanerjee15@gmail.com>
+LABEL maintainer="sagnikbanerjee15@gmail.com" 
 LABEL org.opencontainers.image.source https://github.com/sagnikbanerjee15/dockerized_tools_and_pipelines
 
 

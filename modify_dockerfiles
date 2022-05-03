@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+
+import os
+
+tools_with_version_and_dockerfiles = {}
+tools = os.listdir( "." )
+tools = [val for val in tools if "sample_test_data" not in val]
+for tool in tools:
+    # print( tool, os.path.isdir( tool ) )
+    if "DS_Store" in tool or tool == ".git":continue
+    if os.path.isdir( tool ) == False:continue
+    if os.path.exists( f"{tool}/Dockerfile" ) == True:
+        tools_with_version_and_dockerfiles[tool] = {"latest":f"{tool}/Dockerfile"}
+    else:
+        versions = os.listdir( f"{tool}" )
+        tools_with_version_and_dockerfiles[tool] = {}
+        for version in versions:
+            if "DS_Store" in version or ".output" in version or "error" in version:continue
+            tools_with_version_and_dockerfiles[tool][version] = f"{tool}/{version}/Dockerfile"
+            modified_dockerfilename = f"{tools_with_version_and_dockerfiles[tool][version]}.modified"
+
+            fhr = open( tools_with_version_and_dockerfiles[tool][version], "r" )
+            fhw = open( modified_dockerfilename, "w" )
+            for line in fhr:
+                if "MAINTAINER" in line:
+                    fhw.write( """LABEL maintainer="sagnikbanerjee15@gmail.com" """ + "\n" )
+                else:
+                    fhw.write( line )
+            fhw.close()
+            fhr.close()
+            cmd = f"mv {modified_dockerfilename} {tools_with_version_and_dockerfiles[tool][version]}"
+            os.system( cmd )

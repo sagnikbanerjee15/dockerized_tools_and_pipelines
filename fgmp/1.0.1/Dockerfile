@@ -3,7 +3,7 @@
 #######################################################################################################################################################################
 
 FROM continuumio/miniconda3
-MAINTAINER Sagnik Banerjee <sagnikbanerjee15@gmail.com>
+LABEL maintainer="sagnikbanerjee15@gmail.com" 
 LABEL org.opencontainers.image.source https://github.com/sagnikbanerjee15/dockerized_tools_and_pipelines
 
 ENV TZ=America/New_York
@@ -28,7 +28,6 @@ RUN conda install -c bioconda emboss
 RUN conda install -c bioconda perl-ipc-run
 RUN conda install -c bioconda perl-bioperl
 
-
 RUN apt-get install gcc make -y
 RUN mkdir /softwares && \
 	cd /softwares && \
@@ -39,7 +38,5 @@ RUN mkdir /softwares && \
 
 RUN conda install -c bioconda perl-io-all
 RUN cpanm Bio::Perl
-	
-
 
 ENV PATH=${PATH}:/softwares/FGMP/src

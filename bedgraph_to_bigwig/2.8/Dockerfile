@@ -3,7 +3,7 @@
 #######################################################################################################################################################################
 
 FROM ubuntu
-MAINTAINER Sagnik Banerjee
+LABEL maintainer="sagnikbanerjee15@gmail.com" 
 LABEL org.opencontainers.image.source https://github.com/sagnikbanerjee15/dockerized_tools_and_pipelines
 
 ENV TZ=America/New_York
