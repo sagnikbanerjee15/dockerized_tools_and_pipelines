@@ -1,6 +1,6 @@
 FROM debian:bullseye-20220328-slim AS downloader
 
-ARG SENTIEON_VERSION="202112.02"
+ENV SENTIEON_VERSION="202112.02"
 
 LABEL container.base.image="debian:bullseye-20220328-slim" \
       software.version="${VERSION}" \
@@ -14,8 +14,7 @@ RUN apt-get update && apt-get install -y curl && \
 
 # Build the container
 FROM debian:bullseye-20220328-slim
-ARG SENTIEON_VERSION
-ENV SENTIEON_VERSION=$SENTIEON_VERSION
+ENV SENTIEON_VERSION="202112.02"
 
 COPY --from=downloader /opt/sentieon/sentieon-genomics-${SENTIEON_VERSION} /opt/sentieon/sentieon-genomics-${SENTIEON_VERSION}
 CMD ["/bin/bash"]
