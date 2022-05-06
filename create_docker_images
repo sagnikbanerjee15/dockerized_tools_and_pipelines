@@ -70,6 +70,12 @@ def main():
                 sys.stdout.flush()
                 os.chdir( f"{current_directory}/{tool}" )
             for docker_hub in options.docker_hub:
+                # Attempt to pull from ghcr
+                cmd = f"docker pull {docker_hub}/{tool.lower()}:{version}"
+                print( cmd )
+                os.system( cmd )
+                sys.stdout.flush()
+
                 cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
                 print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
                 sys.stdout.flush()
