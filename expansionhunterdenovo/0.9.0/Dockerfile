@@ -10,7 +10,7 @@ ARG VERSION=0.9.0
 SHELL ["/bin/bash", "-c"]
 RUN apt-get -y -m update && \
 	apt-get install -y wget build-essential time zlib1g-dev libncurses5-dev liblzma-dev libbz2-dev libcurl4-openssl-dev  && \
-	apt-get --quiet install --yes sudo time python3 less locales locales-all perl python3 rsync zip libidn11 fuse wget curl make python3-pip && \
+	apt-get --quiet install --yes sudo time python3 less locales locales-all perl python3 rsync zip   fuse wget curl make python3-pip && \
 	pip3 install scipy numpy && \
 	apt-get clean && \
 	mkdir -p /softwares/expansionhunterdenovo && \

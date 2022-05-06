@@ -1,0 +1,1 @@
+./create_docker_images --error_directory /work/dockerized_tools_and_pipelines/docker_builds
