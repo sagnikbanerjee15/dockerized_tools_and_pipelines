@@ -23,8 +23,8 @@ def parseCommandLineArguments():
     parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
-    parser.add_argument( "--skip_these", "--skip_these", help = "Enter the list of tools to skip processing" )
-    parser.add_argument( "--process_only_these", "--process_only_these", help = "Enter the list of tools to process. Everything else will be ignored" )
+    parser.add_argument( "--skip_these", "--skip_these", help = "Enter the list of tools to skip processing", nargs = '*' )
+    parser.add_argument( "--process_only_these", "--process_only_these", help = "Enter the list of tools to process. Everything else will be ignored", nargs = '*' )
     return parser.parse_args()
 
 
