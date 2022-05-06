@@ -54,6 +54,8 @@ def main():
     os.system( f"mkdir -p {options.error_directory}" )
     if  options.skip_these is None:
         options.skip_these = []
+    if options.process_only_these is None:
+        options.process_only_these = []
     process_only_these = [tool for tool in tools_with_version_and_dockerfiles if tool in options.process_only_these]
     options.skip_these = set( options.skip_these ) | ( set( [tool for tool in tools_with_version_and_dockerfiles ] ) - set( process_only_these ) )
 
