@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y curl && \
     curl -L "https://s3.amazonaws.com/sentieon-release/software/sentieon-genomics-${SENTIEON_VERSION}.tar.gz" | \
       tar -zxf - -C /opt/sentieon/
       
-RUN apt-get install htop
+RUN apt-get install -y htop 
 
 # Build the container
 FROM debian:bullseye-20220328-slim
