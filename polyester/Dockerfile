@@ -1,5 +1,5 @@
 #######################################################################################################################################################################
-# DESeq2
+# Polyester
 #######################################################################################################################################################################
 
 FROM bioconductor/bioconductor_docker:RELEASE_3_14
@@ -9,5 +9,5 @@ LABEL org.opencontainers.image.source https://github.com/sagnikbanerjee15/docker
 ENV TZ=America/New_York
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install DESeq2 and FactoMineR package  
-RUN R -e 'BiocManager::install("DESeq2")'
+# Install polyester  
+RUN R -e 'BiocManager::install("polyester")'

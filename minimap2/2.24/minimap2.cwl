@@ -46,7 +46,8 @@ inputs:
     type: boolean?
   - id: eqx
     type: boolean?
-  - id: threads
+  - 'sbg:toolDefaultValue': '1'
+    id: threads
     type: int?
     inputBinding:
       position: 0
