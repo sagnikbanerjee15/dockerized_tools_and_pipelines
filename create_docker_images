@@ -19,11 +19,12 @@ def parseCommandLineArguments():
     This is done to ensure that the command is working properly, not to test the entire extent of what the command can do.
     Please note that depending on what you provide as input your command may fail.""", formatter_class = RawTextHelpFormatter )
 
-    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines"], nargs = '+' )
+    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15docker_tools_and_pipelines/art"], nargs = '+' )
     parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
     parser.add_argument( "--skip_these", "--skip_these", help = "Enter the list of tools to skip processing" )
+    parser.add_argument( "--process_only_these", "--process_only_these", help = "Enter the list of tools to process. Everything else will be ignored" )
     return parser.parse_args()
 
 
@@ -51,6 +52,11 @@ def main():
     current_directory = os.getcwd()
 
     os.system( f"mkdir -p {options.error_directory}" )
+    process_only_these = [tool for tool in tools_with_version_and_dockerfiles if tool in options.process_only_these]
+    options.skip_these = set( options.skip_these ) | ( set( options.skip_these ) - set( process_only_these ) )
+
+    print( options.skip_these )
+    sys.exit()
     for tool in tools_with_version_and_dockerfiles:
         if options.skip_these is not None and tool in options.skip_these: continue
         for version in tools_with_version_and_dockerfiles[tool]:
