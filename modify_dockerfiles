@@ -21,7 +21,7 @@ for tool in tools:
 
             fhr = open( tools_with_version_and_dockerfiles[tool][version], "r" )
             fhw = open( modified_dockerfilename, "w" )
-            fhw.write( fhr.read().replace( "libidn11", " " ) )
+            fhw.write( fhr.read().replace( "python3.8", "python3" ) )
             fhw.close()
             fhr.close()
             cmd = f"mv {modified_dockerfilename} {tools_with_version_and_dockerfiles[tool][version]}"
