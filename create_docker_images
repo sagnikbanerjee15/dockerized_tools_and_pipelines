@@ -19,7 +19,7 @@ def parseCommandLineArguments():
     This is done to ensure that the command is working properly, not to test the entire extent of what the command can do.
     Please note that depending on what you provide as input your command may fail.""", formatter_class = RawTextHelpFormatter )
 
-    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15docker_tools_and_pipelines/art"], nargs = '+' )
+    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines"], nargs = '+' )
     parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
