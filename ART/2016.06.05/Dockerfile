@@ -28,6 +28,6 @@ RUN sudo apt-get autoclean autoremove
 RUN mkdir -p /softwares && \
 	cd /softwares && \
 	wget https://www.niehs.nih.gov/research/resources/assets/docs/artbinmountrainier2016.06.05linux64.tgz && \
-	tar xvzf artbinmountrainier2016.06.05linux64.tgz &&
+	tar xvzf artbinmountrainier2016.06.05linux64.tgz
 
 ENV PATH $PATH:/softwares/bwa-${VERSION}
