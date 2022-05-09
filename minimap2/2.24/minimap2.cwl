@@ -60,14 +60,14 @@ outputs:
     outputBinding:
       glob: |-
         ${
-            return '*' + inputs.raw_reads_filename.nameroot + ".sam";
+            return '*.sam";
         }
   - id: output_paf
     type: File?
     outputBinding:
       glob: |-
         ${
-            return '*' + inputs.raw_reads_filename.nameroot + ".paf"
+            return '*.paf"
         }
 label: minimap2
 arguments:
