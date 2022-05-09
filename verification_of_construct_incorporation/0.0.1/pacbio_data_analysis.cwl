@@ -18,7 +18,7 @@ inputs:
     'sbg:x': -671.837646484375
     'sbg:y': -459.5
 outputs:
-  - id: output_sam
+  - id: cleaned_
     outputSource:
       - removepooralignments/output_sam
     type: File?
