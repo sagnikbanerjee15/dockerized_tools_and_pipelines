@@ -1,0 +1,4 @@
+summary	Test samtools view to convert samfile to bamfile
+input_alignment	
+output_format	
+threads	
