@@ -70,7 +70,11 @@ inputs:
     inputBinding:
       position: 0
       prefix: '-g'
-outputs: []
+outputs:
+  - id: output_bed
+    type: File?
+    outputBinding:
+      glob: '*bed'
 label: bedtools genomecoveragebed
 requirements:
   - class: DockerRequirement
