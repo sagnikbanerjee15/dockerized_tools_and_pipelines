@@ -78,7 +78,7 @@ outputs:
 label: bedtools genomecoveragebed
 requirements:
   - class: DockerRequirement
-    dockerPull: 'ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines/bedtools:2.27.1'
+    dockerPull: 'ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/bedtools:2.27.1'
   - class: InlineJavascriptRequirement
 stdout: |-
   ${
