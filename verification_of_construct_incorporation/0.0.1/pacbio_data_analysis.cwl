@@ -7,23 +7,23 @@ $namespaces:
 inputs:
   - id: input_alignment
     type: File
-    'sbg:x': -897.8372802734375
-    'sbg:y': -298.5
+    'sbg:x': 0
+    'sbg:y': 134.4312286376953
   - id: threads
     type: int?
-    'sbg:x': -474
-    'sbg:y': -567
+    'sbg:x': 9.548253059387207
+    'sbg:y': -108.21353912353516
   - id: reference
     type: File
-    'sbg:x': -671.837646484375
-    'sbg:y': -459.5
+    'sbg:x': -7.956881046295166
+    'sbg:y': 383.89935302734375
 outputs:
-  - id: output_sam
+  - id: output_bed
     outputSource:
-      - removepooralignments/output_sam
+      - bedtools_genomecoveragebed/output_bed
     type: File?
-    'sbg:x': 197.54437255859375
-    'sbg:y': -306.1768798828125
+    'sbg:x': 1569.0911865234375
+    'sbg:y': -170.16627502441406
 steps:
   - id: samtools_view
     in:
@@ -39,8 +39,8 @@ steps:
       - id: output_cram
     run: ../../samtools/1.14/samtools-view.cwl
     label: samtools view
-    'sbg:x': -701
-    'sbg:y': -228
+    'sbg:x': 434.87860107421875
+    'sbg:y': -343.0368957519531
   - id: convertsamtofastq
     in:
       - id: sam_format_inputfilename
@@ -49,8 +49,8 @@ steps:
       - id: output_fastq
     run: ./convertsamtofastq.cwl
     label: convertSAMToFASTQ
-    'sbg:x': -491.8372802734375
-    'sbg:y': -206.5
+    'sbg:x': 687.6016235351562
+    'sbg:y': -338.58514404296875
   - id: minimap2
     in:
       - id: output_format
@@ -74,8 +74,8 @@ steps:
       - id: output_paf
     run: ../../minimap2/2.24/minimap2.cwl
     label: minimap2
-    'sbg:x': -344
-    'sbg:y': -256
+    'sbg:x': 356.84967041015625
+    'sbg:y': 137.5585174560547
   - id: removepooralignments
     in:
       - id: input_samfilename
@@ -84,8 +84,8 @@ steps:
       - id: output_sam
     run: ./removepooralignments.cwl
     label: removePoorAlignments
-    'sbg:x': 116
-    'sbg:y': -432
+    'sbg:x': 1076.30712890625
+    'sbg:y': -95.87464141845703
   - id: samtools_view_1
     in:
       - id: input_alignment
@@ -100,8 +100,8 @@ steps:
       - id: output_cram
     run: ../../samtools/1.14/samtools-view.cwl
     label: samtools view
-    'sbg:x': -170.45556640625
-    'sbg:y': -247
+    'sbg:x': 705.12744140625
+    'sbg:y': 126.41888427734375
   - id: samtools_sort
     in:
       - id: input_alignment
@@ -118,6 +118,32 @@ steps:
       - id: output_cram
     run: ../../samtools/1.14/samtools-sort.cwl
     label: samtools sort
-    'sbg:x': -47
-    'sbg:y': -367
+    'sbg:x': 916.4747924804688
+    'sbg:y': -7.256659030914307
+  - id: bedtools_genomecoveragebed
+    in:
+      - id: ibam
+        source: samtools_view_2/output_bam
+    out:
+      - id: output_bed
+    run: ../../bedtools/2.27.1/bedtools-genomecoveragebed.cwl
+    label: bedtools genomecoveragebed
+    'sbg:x': 1425.4195556640625
+    'sbg:y': -251.52615356445312
+  - id: samtools_view_2
+    in:
+      - id: input_alignment
+        source: removepooralignments/output_sam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-view.cwl
+    label: samtools view
+    'sbg:x': 1209.6845703125
+    'sbg:y': -219.6299591064453
 requirements: []
