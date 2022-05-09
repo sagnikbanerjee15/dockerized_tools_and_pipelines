@@ -24,6 +24,24 @@ outputs:
     type: File?
     'sbg:x': -56.837646484375
     'sbg:y': -195.5
+  - id: output_sam_1
+    outputSource:
+      - samtools_view/output_sam
+    type: File?
+    'sbg:x': -540.837646484375
+    'sbg:y': 51.5
+  - id: output_fastq
+    outputSource:
+      - convertsamtofastq/output_fastq
+    type: File?
+    'sbg:x': -379.837646484375
+    'sbg:y': -31.5
+  - id: output_sam_2
+    outputSource:
+      - minimap2/output_sam
+    type: File?
+    'sbg:x': -257.837646484375
+    'sbg:y': -5.5
 steps:
   - id: samtools_view
     in:
