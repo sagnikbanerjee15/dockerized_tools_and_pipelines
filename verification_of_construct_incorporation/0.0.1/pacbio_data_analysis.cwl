@@ -53,6 +53,8 @@ steps:
     'sbg:y': -206.5
   - id: minimap2
     in:
+      - id: output_format
+        default: SAM
       - id: reference
         source: reference
       - id: raw_reads_filename
