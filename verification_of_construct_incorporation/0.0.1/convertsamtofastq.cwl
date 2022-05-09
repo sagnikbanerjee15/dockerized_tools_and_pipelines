@@ -11,7 +11,11 @@ inputs:
     inputBinding:
       position: 0
       prefix: '--sam_format_inputfilename'
-outputs: []
+outputs:
+  - id: output_fastq
+    type: File?
+    outputBinding:
+      glob: '*fastq'
 label: convertSAMToFASTQ
 arguments:
   - position: 0
