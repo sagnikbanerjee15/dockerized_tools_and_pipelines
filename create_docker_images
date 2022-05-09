@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 ##############################################################################################################################
-# Command - ./createDockerImages
+# Command - ./create_docker_images --error_directory <Full path to error directory>
 # Program will navigate to each directory, create docker packages and push it to the docker hub
 ##############################################################################################################################
 from argparse import RawTextHelpFormatter
@@ -26,6 +26,7 @@ def parseCommandLineArguments():
     parser.add_argument( "--only_pull", "-only_pull", help = "Only pull from ghcr do not push", action = "store_true" )
     parser.add_argument( "--skip_these", "-skip_these", help = "Enter the list of tools to skip processing", nargs = '*' )
     parser.add_argument( "--process_only_these", "-process_only_these", help = "Enter the list of tools to process. Everything else will be ignored", nargs = '*' )
+    parser.add_argument( "--only_test_cwl_scripts", "-only_test_cwl_scripts", help = "Perform CWL tests", action = "store_true" )
     return parser.parse_args()
 
 
@@ -63,33 +64,33 @@ def main():
     for tool in tools_with_version_and_dockerfiles:
         if options.skip_these is not None and tool in options.skip_these: continue
         for version in tools_with_version_and_dockerfiles[tool]:
-
-            if version != "latest":
-                print( f"Changing to {current_directory}/{tool}/{version}" )
-                sys.stdout.flush()
-                os.chdir( f"{current_directory}/{tool}/{version}" )
-            else:
-                print( f"Changing to {current_directory}/{tool}" )
-                sys.stdout.flush()
-                os.chdir( f"{current_directory}/{tool}" )
-            for docker_hub in options.docker_hub:
-                # Attempt to pull from ghcr
-                cmd = f"docker pull {docker_hub}/{tool.lower()}:{version}"
-                print( cmd )
-                os.system( cmd )
-                sys.stdout.flush()
-
-                if options.only_pull == False:
-                    cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
-                    print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
+            if options.only_test_cwl_scripts == False:
+                if version != "latest":
+                    print( f"Changing to {current_directory}/{tool}/{version}" )
                     sys.stdout.flush()
-                    os.system( cmd )
-
-                    cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
+                    os.chdir( f"{current_directory}/{tool}/{version}" )
+                else:
+                    print( f"Changing to {current_directory}/{tool}" )
+                    sys.stdout.flush()
+                    os.chdir( f"{current_directory}/{tool}" )
+                for docker_hub in options.docker_hub:
+                    # Attempt to pull from ghcr
+                    cmd = f"docker pull {docker_hub}/{tool.lower()}:{version}"
                     print( cmd )
                     os.system( cmd )
                     sys.stdout.flush()
-            os.chdir( f"{current_directory}" )
+
+                    if options.only_pull == False:
+                        cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
+                        print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
+                        sys.stdout.flush()
+                        os.system( cmd )
+
+                        cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
+                        print( cmd )
+                        os.system( cmd )
+                        sys.stdout.flush()
+                os.chdir( f"{current_directory}" )
 
 
 if __name__ == "__main__":

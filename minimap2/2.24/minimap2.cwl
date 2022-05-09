@@ -52,6 +52,8 @@ inputs:
     inputBinding:
       position: 0
       prefix: '-t'
+  - id: use_soft_clipping_for_secondary_alignments
+    type: boolean?
 outputs:
   - id: output_sam
     type: File?
@@ -122,6 +124,9 @@ arguments:
   - position: 0
     prefix: ''
     valueFrom: '${ if(inputs.eqx) {return "--eqx"} else {return ""} }'
+  - position: 0
+    prefix: ''
+    valueFrom: '${ if(inputs.use_soft_clipping_for_secondary_alignments){ return "-Y" } }'
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement

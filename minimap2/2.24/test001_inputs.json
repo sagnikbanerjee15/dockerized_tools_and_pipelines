@@ -1,0 +1,26 @@
+{
+  "reference": {
+    "path": "/tmp/fill_me_in.txt",
+    "class": "File"
+  },
+  "raw_reads_filename": {
+    "path": "/tmp/fill_me_in.txt",
+    "class": "File"
+  },
+  "output_paf": {
+    "path": "/tmp/fill_me_in.txt",
+    "class": "File"
+  },
+  "max_secondary_alignments": 0,
+  "output_MD_tag": false,
+  "output_format": "fill me in",
+  "output_sam": {
+    "path": "/tmp/fill_me_in.txt",
+    "class": "File"
+  },
+  "threads": 0,
+  "cs_tag": false,
+  "activate_homopolymer_kmer": false,
+  "max_intron_length": 0,
+  "eqx": false
+}
