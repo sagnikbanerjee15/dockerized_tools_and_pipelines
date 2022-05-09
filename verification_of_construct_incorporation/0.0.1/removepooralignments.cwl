@@ -10,7 +10,11 @@ inputs:
     type: File
     inputBinding:
       position: 0
-outputs: []
+outputs:
+  - id: output_sam
+    type: File?
+    outputBinding:
+      glob: '*sam'
 label: removePoorAlignments
 arguments:
   - position: 0
