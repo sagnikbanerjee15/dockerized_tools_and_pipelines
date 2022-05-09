@@ -32,12 +32,12 @@ inputs:
           - PAF
         name: output_format
   - id: reference
-    type: File?
+    type: File
     inputBinding:
       position: 99
       shellQuote: false
   - id: raw_reads_filename
-    type: File?
+    type: File
     inputBinding:
       position: 100
   - id: cs_tag
