@@ -40,6 +40,7 @@ inputs:
     type: File
     inputBinding:
       position: 100
+      shellQuote: false
   - id: cs_tag
     type: boolean?
   - id: output_MD_tag
@@ -59,8 +60,7 @@ outputs:
   - id: output_sam
     type: File?
     outputBinding:
-      glob: |
-        *.sam
+      glob: '*sam'
   - id: output_paf
     type: File?
     outputBinding:
