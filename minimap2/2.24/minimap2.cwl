@@ -67,7 +67,7 @@ outputs:
 label: minimap2
 arguments:
   - position: 0
-    prefix: activate_homopolymer_kmer
+    prefix: ''
     shellQuote: false
     valueFrom: |-
       ${
@@ -84,6 +84,7 @@ arguments:
       }
   - position: 0
     prefix: '-o'
+    shellQuote: false
     valueFrom: |-
       ${
           if(inputs.output_format=="SAM")
@@ -111,6 +112,7 @@ arguments:
       }
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: |-
       ${
           if(inputs.output_MD_tag) { return "--MD" }
@@ -118,9 +120,11 @@ arguments:
       }
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: '${ if(inputs.eqx) {return "--eqx"} else {return ""} }'
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: '${ if(inputs.use_soft_clipping_for_secondary_alignments){ return "-Y" } }'
 requirements:
   - class: ShellCommandRequirement
