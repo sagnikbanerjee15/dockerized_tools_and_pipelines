@@ -11,37 +11,19 @@ inputs:
     'sbg:y': -298.5
   - id: threads
     type: int?
-    'sbg:x': -833.837646484375
-    'sbg:y': -431.5
+    'sbg:x': -474
+    'sbg:y': -567
   - id: reference
     type: File
     'sbg:x': -671.837646484375
     'sbg:y': -459.5
 outputs:
-  - id: cleaned_alignments_in_sam
+  - id: output_sam
     outputSource:
       - removepooralignments/output_sam
     type: File?
-    'sbg:x': -56.837646484375
-    'sbg:y': -195.5
-  - id: unaligned_reads_in_sam
-    outputSource:
-      - samtools_view/output_sam
-    type: File?
-    'sbg:x': -540.837646484375
-    'sbg:y': 51.5
-  - id: unaligned_reads_in_fastq
-    outputSource:
-      - convertsamtofastq/output_fastq
-    type: File?
-    'sbg:x': -379.837646484375
-    'sbg:y': -31.5
-  - id: aligned_reads_in_sam
-    outputSource:
-      - minimap2/output_sam
-    type: File?
-    'sbg:x': -205
-    'sbg:y': -75
+    'sbg:x': 197.54437255859375
+    'sbg:y': -306.1768798828125
 steps:
   - id: samtools_view
     in:
@@ -97,11 +79,45 @@ steps:
   - id: removepooralignments
     in:
       - id: input_samfilename
-        source: minimap2/output_sam
+        source: samtools_sort/output_sam
     out:
       - id: output_sam
     run: ./removepooralignments.cwl
     label: removePoorAlignments
-    'sbg:x': -198
-    'sbg:y': -304
+    'sbg:x': 116
+    'sbg:y': -432
+  - id: samtools_view_1
+    in:
+      - id: input_alignment
+        source: minimap2/output_sam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-view.cwl
+    label: samtools view
+    'sbg:x': -170.45556640625
+    'sbg:y': -247
+  - id: samtools_sort
+    in:
+      - id: input_alignment
+        source: samtools_view_1/output_sam
+      - id: output_format
+        default: SAM
+      - id: threads
+        source: threads
+      - id: sort_by_name
+        default: true
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-sort.cwl
+    label: samtools sort
+    'sbg:x': -47
+    'sbg:y': -367
 requirements: []
