@@ -57,6 +57,16 @@ steps:
         source: reference
       - id: raw_reads_filename
         source: convertsamtofastq/output_fastq
+      - id: cs_tag
+        default: true
+      - id: output_MD_tag
+        default: true
+      - id: eqx
+        default: true
+      - id: threads
+        source: threads
+      - id: use_soft_clipping_for_secondary_alignments
+        default: true
     out:
       - id: output_sam
       - id: output_paf
