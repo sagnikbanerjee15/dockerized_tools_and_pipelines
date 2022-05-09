@@ -90,11 +90,11 @@ arguments:
       ${
           if(inputs.output_format=="SAM")
           {
-              return inputs.raw_reads_filename.nameroot + ".sam"
+              return inputs.raw_reads_filename.nameroot + "_aligned.sam"
           }
           else(inputs.output_format=="PAF")
           {
-              return inputs.raw_reads_filename.nameroot + ".paf"
+              return inputs.raw_reads_filename.nameroot + "_aligned.paf"
           }
       }
   - position: 0
