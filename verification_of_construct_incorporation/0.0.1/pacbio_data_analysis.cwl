@@ -24,6 +24,12 @@ outputs:
     type: File?
     'sbg:x': -131.837646484375
     'sbg:y': -212.5
+  - id: output_fastq
+    outputSource:
+      - convertsamtofastq/output_fastq
+    type: File?
+    'sbg:x': -303.837646484375
+    'sbg:y': -51.5
 steps:
   - id: samtools_view
     in:
