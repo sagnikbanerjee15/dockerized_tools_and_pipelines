@@ -18,7 +18,7 @@ outputs:
 label: removePoorAlignments
 arguments:
   - position: 0
-    prefix: output_samfilename
+    prefix: '--output_samfilename'
     valueFrom: |-
       ${
           return inputs.input_samfilename.nameroot + "_cleaned.sam"
