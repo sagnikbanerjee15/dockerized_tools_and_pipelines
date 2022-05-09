@@ -20,22 +20,10 @@ inputs:
 outputs:
   - id: output_sam
     outputSource:
-      - minimap2/output_sam
+      - removepooralignments/output_sam
     type: File?
-    'sbg:x': -131.837646484375
-    'sbg:y': -212.5
-  - id: output_fastq
-    outputSource:
-      - convertsamtofastq/output_fastq
-    type: File?
-    'sbg:x': -303.837646484375
-    'sbg:y': -51.5
-  - id: output_sam_1
-    outputSource:
-      - samtools_view/output_sam
-    type: File?
-    'sbg:x': -509.837646484375
-    'sbg:y': 89.5
+    'sbg:x': -56.837646484375
+    'sbg:y': -195.5
 steps:
   - id: samtools_view
     in:
@@ -88,4 +76,14 @@ steps:
     label: minimap2
     'sbg:x': -344
     'sbg:y': -256
+  - id: removepooralignments
+    in:
+      - id: input_samfilename
+        source: minimap2/output_sam
+    out:
+      - id: output_sam
+    run: ./removepooralignments.cwl
+    label: removePoorAlignments
+    'sbg:x': -198
+    'sbg:y': -304
 requirements: []
