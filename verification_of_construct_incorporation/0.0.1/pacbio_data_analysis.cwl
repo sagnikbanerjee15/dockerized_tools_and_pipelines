@@ -105,7 +105,7 @@ steps:
   - id: samtools_sort
     in:
       - id: input_alignment
-        source: samtools_view_1/output_sam
+        source: samtools_view_1/output_bam
       - id: output_format
         default: SAM
       - id: threads
