@@ -23,8 +23,9 @@ def parseCommandLineArguments():
     parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
-    parser.add_argument( "--skip_these", "--skip_these", help = "Enter the list of tools to skip processing", nargs = '*' )
-    parser.add_argument( "--process_only_these", "--process_only_these", help = "Enter the list of tools to process. Everything else will be ignored", nargs = '*' )
+    parser.add_argument( "--only_pull", "-only_pull", help = "Only pull from ghcr do not push", action = "store_true" )
+    parser.add_argument( "--skip_these", "-skip_these", help = "Enter the list of tools to skip processing", nargs = '*' )
+    parser.add_argument( "--process_only_these", "-process_only_these", help = "Enter the list of tools to process. Everything else will be ignored", nargs = '*' )
     return parser.parse_args()
 
 
@@ -78,15 +79,16 @@ def main():
                 os.system( cmd )
                 sys.stdout.flush()
 
-                cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
-                print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
-                sys.stdout.flush()
-                os.system( cmd )
+                if options.only_pull == False:
+                    cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
+                    print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
+                    sys.stdout.flush()
+                    os.system( cmd )
 
-                cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
-                print( cmd )
-                os.system( cmd )
-                sys.stdout.flush()
+                    cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
+                    print( cmd )
+                    os.system( cmd )
+                    sys.stdout.flush()
             os.chdir( f"{current_directory}" )
 
 
