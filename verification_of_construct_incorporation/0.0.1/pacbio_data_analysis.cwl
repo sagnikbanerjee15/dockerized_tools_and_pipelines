@@ -30,6 +30,12 @@ outputs:
     type: File?
     'sbg:x': -303.837646484375
     'sbg:y': -51.5
+  - id: output_sam_1
+    outputSource:
+      - samtools_view/output_sam
+    type: File?
+    'sbg:x': -509.837646484375
+    'sbg:y': 89.5
 steps:
   - id: samtools_view
     in:
