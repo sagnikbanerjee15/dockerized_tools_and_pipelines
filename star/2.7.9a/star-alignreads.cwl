@@ -68,4 +68,4 @@ hints:
   - class: 'sbg:CPURequirement'
     value: 1
   - class: DockerRequirement
-    dockerPull: 'sagnikbanerjee15/star:2.7.9a'
+    dockerPull: 'ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/star:2.7.9a'
