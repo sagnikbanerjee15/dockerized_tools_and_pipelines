@@ -10,6 +10,7 @@ inputs:
     type: File
     inputBinding:
       position: 0
+      prefix: '--input_samfilename'
 outputs:
   - id: output_sam
     type: File?
