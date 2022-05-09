@@ -52,6 +52,7 @@ inputs:
     inputBinding:
       position: 0
       prefix: '-t'
+      shellQuote: false
   - id: use_soft_clipping_for_secondary_alignments
     type: boolean?
 outputs:

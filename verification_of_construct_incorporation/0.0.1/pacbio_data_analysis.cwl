@@ -20,10 +20,10 @@ inputs:
 outputs:
   - id: output_sam
     outputSource:
-      - removepooralignments/output_sam
+      - minimap2/output_sam
     type: File?
-    'sbg:x': -35.837646484375
-    'sbg:y': -270.5
+    'sbg:x': -131.837646484375
+    'sbg:y': -212.5
 steps:
   - id: samtools_view
     in:
@@ -76,14 +76,4 @@ steps:
     label: minimap2
     'sbg:x': -344
     'sbg:y': -256
-  - id: removepooralignments
-    in:
-      - id: input_samfilename
-        source: minimap2/output_sam
-    out:
-      - id: output_sam
-    run: ./removepooralignments.cwl
-    label: removePoorAlignments
-    'sbg:x': -188
-    'sbg:y': -263
 requirements: []
