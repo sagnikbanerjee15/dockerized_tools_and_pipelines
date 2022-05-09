@@ -58,17 +58,12 @@ outputs:
   - id: output_sam
     type: File?
     outputBinding:
-      glob: |-
-        ${
-            return '*.sam";
-        }
+      glob: |
+        *.sam
   - id: output_paf
     type: File?
     outputBinding:
-      glob: |-
-        ${
-            return '*.paf"
-        }
+      glob: '*paf'
 label: minimap2
 arguments:
   - position: 0
