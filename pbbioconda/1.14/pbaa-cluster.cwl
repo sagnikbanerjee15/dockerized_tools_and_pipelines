@@ -129,6 +129,7 @@ inputs:
     inputBinding:
       position: 0
       prefix: '--iterations'
+      shellQuote: false
     doc: Number of iterations to run k-means
   - 'sbg:toolDefaultValue': '1984'
     id: seed
@@ -136,6 +137,7 @@ inputs:
     inputBinding:
       position: 0
       prefix: '--seed'
+      shellQuote: false
     doc: Randomization seed
   - id: pbaa_basecommand
     type: File?
