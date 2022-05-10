@@ -21,6 +21,9 @@ RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) 
 
 RUN echo deb http://deb.debian.org/debian/ stretch main >> /etc/apt/sources.list
 RUN apt-get install -y libz-dev ncurses-dev liblzma-dev libbz2-dev libcurl4-openssl-dev
+RUN	apt-get --quiet install --yes   fuse wget curl make zlib1g-dev libffi-dev libncurses5-dev libcurl4-gnutls-dev libssl-dev cmake python3-all-dev
+RUN	apt-get --quiet install --yes zlib1g-dev libbz2-dev liblzma-dev libcurl3-dev 
+RUN apt-get clean
 
 #######################################################################################################################################################################
 # BEDGRAPH-TO-BIGWIG
