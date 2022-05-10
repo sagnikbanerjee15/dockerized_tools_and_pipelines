@@ -20,7 +20,8 @@ outputs:
 label: samtools-faidx
 arguments:
   - position: 2
-    valueFrom: $(inputs.fa.basename)
+    prefix: ''
+    valueFrom: $(inputs.fa.path)
   - position: 3
     valueFrom: '&&'
   - position: 4
@@ -29,7 +30,7 @@ arguments:
     valueFrom: faidx
   - position: 6
     prefix: ''
-    valueFrom: $(inputs.fa.path)
+    valueFrom: $(inputs.fa.basename)
   - position: 7
     valueFrom: '&&'
   - position: 8
