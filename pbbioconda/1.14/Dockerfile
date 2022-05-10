@@ -52,6 +52,7 @@ RUN set -e \
 
 RUN conda install -c bioconda pbaa
 
+RUN apt-get update 
 RUN apt-get install -y wget
 ARG VERSION=1.14
 RUN mkdir -p /softwares/samtools && \
