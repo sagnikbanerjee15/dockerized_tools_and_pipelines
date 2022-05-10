@@ -3,9 +3,7 @@ cwlVersion: v1.0
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 id: pbaa_cluster
-baseCommand:
-  - pbaa
-  - cluster
+baseCommand: []
 inputs:
   - 'sbg:toolDefaultValue': '1'
     id: num-threads
@@ -143,8 +141,25 @@ inputs:
       position: 0
       prefix: '--seed'
     doc: Randomization seed
+  - id: pbaa_command
+    type: File?
+    inputBinding:
+      position: 0
+  - id: pbaa_basecommand
+    type: File?
+    inputBinding:
+      position: -1
+      prefix: pbaa cluster
+      shellQuote: false
 outputs: []
 label: pbaa cluster
+arguments:
+  - position: -2
+    prefix: ''
+    valueFrom: |-
+      ${
+          return "cp " + inputs.reference.path + " . && samtools faidx "+ inputs.reference.basename + " && cp " + inputs.raw_reads_in_fastq.path + " . && samtools fqidx " + inputs.reference.basename +" &&"
+      }
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement

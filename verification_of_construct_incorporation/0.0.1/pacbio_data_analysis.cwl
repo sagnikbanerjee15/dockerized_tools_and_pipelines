@@ -186,8 +186,8 @@ steps:
       - id: fai
     run: ../../samtools/1.14/samtools-faidx.cwl
     label: samtools-faidx
-    'sbg:x': 390.4232177734375
-    'sbg:y': 334.7137756347656
+    'sbg:x': 364.5299987792969
+    'sbg:y': 305.34625244140625
   - id: generate_annotation_file_for_construct_ha_primers
     in:
       - id: reference
