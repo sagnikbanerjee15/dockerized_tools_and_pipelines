@@ -86,8 +86,6 @@ inputs:
     inputBinding:
       position: 101
       shellQuote: false
-    secondaryFiles:
-      - '*fai'
   - id: raw_reads_in_fastq
     type: File
     inputBinding:
@@ -141,10 +139,6 @@ inputs:
       position: 0
       prefix: '--seed'
     doc: Randomization seed
-  - id: pbaa_command
-    type: File?
-    inputBinding:
-      position: 0
   - id: pbaa_basecommand
     type: File?
     inputBinding:
