@@ -156,3 +156,4 @@ requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
     dockerPull: 'ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/pbbioconda:1.14'
+  - class: InlineJavascriptRequirement
