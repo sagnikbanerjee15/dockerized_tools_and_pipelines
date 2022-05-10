@@ -52,12 +52,6 @@ outputs:
     type: File?
     'sbg:x': 887.62353515625
     'sbg:y': 16.62744140625
-  - id: output_1
-    outputSource:
-      - samtools_faidx/output
-    type: File?
-    'sbg:x': 491.34521484375
-    'sbg:y': 423.8700256347656
 steps:
   - id: samtools_view
     in:
@@ -186,10 +180,10 @@ steps:
     'sbg:y': 305.875
   - id: samtools_faidx
     in:
-      - id: input_fasta
+      - id: fa
         source: reference
     out:
-      - id: output
+      - id: fai
     run: ../../samtools/1.14/samtools-faidx.cwl
     label: samtools-faidx
     'sbg:x': 390.4232177734375
