@@ -147,7 +147,11 @@ inputs:
       prefix: '--seed'
       shellQuote: false
     doc: Randomization seed
-outputs: []
+outputs:
+  - id: output_consensus
+    type: File?
+    outputBinding:
+      glob: '*passed_cluster_sequences.fasta'
 label: pbaa cluster
 arguments:
   - position: -2
