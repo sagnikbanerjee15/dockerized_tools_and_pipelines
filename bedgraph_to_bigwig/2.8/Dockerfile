@@ -31,3 +31,16 @@ RUN mkdir -p /softwares/bedgraphtobigwig && cd /softwares/bedgraphtobigwig &&\
 	chmod +x bedGraphToBigWig
 
 ENV PATH="$PATH:/softwares/bedgraphtobigwig"
+
+
+#######################################################################################################################################################################
+# samtools
+#######################################################################################################################################################################
+
+ARG VERSION=1.14
+RUN mkdir -p /softwares/samtools && \
+	cd /softwares/samtools && \
+	wget https://github.com/samtools/samtools/releases/download/${VERSION}/samtools-${VERSION}.tar.bz2 && \
+	tar jxf samtools-${VERSION}.tar.bz2 && \
+	cd samtools-${VERSION} && make && make install && \
+	cd .. && rm samtools-${VERSION}.tar.bz2

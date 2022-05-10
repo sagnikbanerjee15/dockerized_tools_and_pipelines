@@ -69,8 +69,8 @@ outputs:
     outputSource:
       - bedgraph_to_bigwig/output
     type: File?
-    'sbg:x': 2928.822998046875
-    'sbg:y': 46.67815017700195
+    'sbg:x': 2652.6669921875
+    'sbg:y': 106.60791015625
 steps:
   - id: samtools_view
     in:
