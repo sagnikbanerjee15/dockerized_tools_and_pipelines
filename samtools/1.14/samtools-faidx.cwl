@@ -28,7 +28,8 @@ arguments:
   - position: 5
     valueFrom: faidx
   - position: 6
-    valueFrom: $(inputs.fa.basename)
+    prefix: ''
+    valueFrom: $(inputs.fa.path)
   - position: 7
     valueFrom: '&&'
   - position: 8
