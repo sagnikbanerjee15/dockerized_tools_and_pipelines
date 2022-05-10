@@ -11,8 +11,8 @@ inputs:
     'sbg:y': -136.84185791015625
   - id: threads
     type: int?
-    'sbg:x': 0
-    'sbg:y': 106.640625
+    'sbg:x': 967.1021118164062
+    'sbg:y': -315.7394714355469
   - id: reference
     type: File
     'sbg:x': 0
@@ -214,8 +214,8 @@ steps:
       - id: construct_gtf
     run: ./generate_annotation_file_for_construct_ha_primers.cwl
     label: generate_annotation_file_for_construct_HA_primers
-    'sbg:x': 354.90118408203125
-    'sbg:y': 475.78533935546875
+    'sbg:x': 398.48956298828125
+    'sbg:y': 427.6523742675781
   - id: subset_reads_spanning_the_construct
     in:
       - id: reference
