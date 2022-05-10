@@ -44,14 +44,33 @@ outputs:
     outputSource:
       - convertsamtofastq/output_fastq
     type: File?
-    'sbg:x': 814.0066528320312
-    'sbg:y': 439.533203125
-  - id: output
+    'sbg:x': 775.9324951171875
+    'sbg:y': -80.70379638671875
+  - id: output_consensus
     outputSource:
-      - samtools_fqidx/output
+      - pbaa_cluster/output_consensus
     type: File?
-    'sbg:x': 887.62353515625
-    'sbg:y': 16.62744140625
+    'sbg:x': 736.6906127929688
+    'sbg:y': 1195.7142333984375
+  - id: output_consensus_1
+    outputSource:
+      - pbaa_cluster_1/output_consensus
+    type: File?
+    'sbg:x': 981.56591796875
+    'sbg:y': 1151.041015625
+  - id: construct_HA_primer_gtf
+    outputSource:
+      - >-
+        generate_annotation_file_for_construct_ha_primers/construct_HA_primer_gtf
+    type: File?
+    'sbg:x': 538.1431274414062
+    'sbg:y': 401.5241394042969
+  - id: construct_gtf
+    outputSource:
+      - generate_annotation_file_for_construct_ha_primers/construct_gtf
+    type: File?
+    'sbg:x': 566.2706909179688
+    'sbg:y': 548.7802124023438
 steps:
   - id: samtools_view
     in:
@@ -209,38 +228,50 @@ steps:
     label: bedgraph_to_bigwig
     'sbg:x': 2260.750244140625
     'sbg:y': 73.93431091308594
+  - id: subset_reads_spanning_the_construct
+    in:
+      - id: reference
+        source: reference
+      - id: construct_fasta
+        source: construct
+      - id: raw_reads_mapped_to_reference_bam
+        source:
+          - samtools_view_2/output_bam
+      - id: raw_reads
+        source: convertsamtofastq/output_fastq
+    out:
+      - id: output_fastq
+    run: ./subset_reads_spanning_the_construct.cwl
+    label: subset_reads_spanning_the_construct
+    'sbg:x': 953.411865234375
+    'sbg:y': 681.9188232421875
   - id: pbaa_cluster
     in:
-      - id: num-threads
-        source: threads
-      - id: min-read-qv
-        default: 40
       - id: reference
         source: reference
       - id: raw_reads_in_fastq
         source: convertsamtofastq/output_fastq
       - id: output_prefix
-        default: whole_consensus
-      - id: pile-size
-        default: 10
-      - id: max-reads-per-guide
-        default: 200
-      - id: iterations
-        default: 5
-    out: []
+        default: whole
+    out:
+      - id: output_consensus
     run: ../../pbbioconda/1.14/pbaa-cluster.cwl
     label: pbaa cluster
-    'sbg:x': 1188.1558837890625
-    'sbg:y': 631.19384765625
-  - id: samtools_fqidx
+    'sbg:x': 580.433837890625
+    'sbg:y': 1039.3826904296875
+  - id: pbaa_cluster_1
     in:
-      - id: input_fastq
-        source: convertsamtofastq/output_fastq
+      - id: reference
+        source: reference
+      - id: raw_reads_in_fastq
+        source: subset_reads_spanning_the_construct/output_fastq
+      - id: output_prefix
+        default: construct_spanning
     out:
-      - id: output
-    run: ../../samtools/1.14/samtools-fqidx.cwl
-    label: samtools-fqidx
-    'sbg:x': 718.3206787109375
-    'sbg:y': 35.04830551147461
+      - id: output_consensus
+    run: ../../pbbioconda/1.14/pbaa-cluster.cwl
+    label: pbaa cluster
+    'sbg:x': 780.9775390625
+    'sbg:y': 1041.255126953125
 requirements:
   - class: SubworkflowFeatureRequirement

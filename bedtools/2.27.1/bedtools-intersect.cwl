@@ -194,6 +194,14 @@ inputs:
       prefix: '-header'
       shellQuote: false
     doc: Print the header from the A file prior to results.
+  - id: bed_output_fomat_specifier
+    type: File?
+    inputBinding:
+      position: 0
+      prefix: '-bed'
+      shellQuote: false
+  - id: output_prefix
+    type: string
 outputs:
   - id: output
     type: File
@@ -235,7 +243,7 @@ arguments:
   - position: 3
     prefix: ''
     shellQuote: false
-    valueFrom: '> $(inputs.inputA.basename.replace(".gz",""))'
+    valueFrom: '> $(inputs.output_prefix + ".bed")'
 requirements:
   - class: ShellCommandRequirement
   - class: InlineJavascriptRequirement
