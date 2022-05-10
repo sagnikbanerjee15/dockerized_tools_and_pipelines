@@ -91,8 +91,6 @@ inputs:
     inputBinding:
       position: 102
       shellQuote: false
-    secondaryFiles:
-      - '*fai'
   - id: output_prefix
     type: string
     inputBinding:
