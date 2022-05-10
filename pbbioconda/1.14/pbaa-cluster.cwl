@@ -9,14 +9,14 @@ inputs:
     id: num-threads
     type: int?
     inputBinding:
-      position: 0
+      position: 1
       prefix: '--num-threads'
       shellQuote: false
   - 'sbg:toolDefaultValue': '3'
     id: filter
     type: int?
     inputBinding:
-      position: 0
+      position: 2
       prefix: '--filter'
       shellQuote: false
     doc: >-
@@ -26,7 +26,7 @@ inputs:
     id: trim-ends
     type: int?
     inputBinding:
-      position: 0
+      position: 3
       prefix: '--trim-ends'
       shellQuote: false
     doc: Number of bases to trim from both sides of reads during graph construction
@@ -34,21 +34,21 @@ inputs:
     id: min-var-frequency
     type: float?
     inputBinding:
-      position: 0
+      position: 4
       prefix: '--min-var-frequency'
       shellQuote: false
     doc: Minimum variant frequency
   - id: no-cluster-by-length
     type: boolean?
     inputBinding:
-      position: 0
+      position: 5
       shellQuote: false
     doc: Disable fallback length clustering if no variants were discovered.
   - 'sbg:toolDefaultValue': '0.1'
     id: min-cluster-frequency
     type: float?
     inputBinding:
-      position: 0
+      position: 6
       prefix: '--min-cluster-frequency'
       shellQuote: false
     doc: Low frequency cluster cutoff.
@@ -56,13 +56,13 @@ inputs:
     id: min-cluster-read-count
     type: int?
     inputBinding:
-      position: 0
+      position: 7
       prefix: '--min-cluster-read-count'
       shellQuote: false
   - id: off-target-groups
     type: string?
     inputBinding:
-      position: 0
+      position: 8
       prefix: '--off-target-groups'
       shellQuote: false
     doc: 'Group names to exclude, i.e. these loci are off-target (not amplified).'
@@ -70,14 +70,14 @@ inputs:
     id: max-amplicon-size
     type: int?
     inputBinding:
-      position: 0
+      position: 9
       prefix: '--max-amplicon-size'
       shellQuote: false
     doc: 'Upper read length cutoff, longer reads will be skipped.'
   - id: min-read-qv
     type: int?
     inputBinding:
-      position: 0
+      position: 10
       prefix: '--min-read-qv'
       shellQuote: false
     doc: Low read QV cutoff
@@ -110,7 +110,7 @@ inputs:
     id: pile-size
     type: int?
     inputBinding:
-      position: 0
+      position: 11
       prefix: '--pile-size'
       shellQuote: false
     doc: >-
@@ -120,14 +120,14 @@ inputs:
     id: max-alignments-per-read
     type: int?
     inputBinding:
-      position: 0
+      position: 12
       prefix: '--max-alignments-per-read'
     doc: 'The number of random alignments, for each read, within a guide grouping'
   - 'sbg:toolDefaultValue': '500'
     id: max-reads-per-guide
     type: int?
     inputBinding:
-      position: 0
+      position: 13
       prefix: '--max-reads-per-guide'
       shellQuote: false
     doc: The number randomly selected reads to use within a guide grouping
@@ -135,7 +135,7 @@ inputs:
     id: iterations
     type: int?
     inputBinding:
-      position: 0
+      position: 14
       prefix: '--iterations'
       shellQuote: false
     doc: Number of iterations to run k-means
@@ -143,14 +143,14 @@ inputs:
     id: seed
     type: int?
     inputBinding:
-      position: 0
+      position: 15
       prefix: '--seed'
       shellQuote: false
     doc: Randomization seed
   - id: pbaa_basecommand
     type: File?
     inputBinding:
-      position: -1
+      position: 0
       prefix: pbaa cluster
       shellQuote: false
 outputs: []
