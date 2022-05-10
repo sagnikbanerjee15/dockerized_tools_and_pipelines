@@ -155,7 +155,7 @@ arguments:
     shellQuote: false
     valueFrom: |-
       ${
-          return "cp " + inputs.reference.path + " . && samtools faidx "+ inputs.reference.basename + " && cp " + inputs.raw_reads_in_fastq.path + " . && samtools fqidx " + inputs.reference.basename +" && pbaa cluster "
+          return "cp " + inputs.reference.path + " . && samtools faidx "+ inputs.reference.basename + " && cp " + inputs.raw_reads_in_fastq.path + " . && samtools fqidx " + inputs.raw_reads_in_fastq.basename +" && pbaa cluster "
       }
 requirements:
   - class: ShellCommandRequirement
