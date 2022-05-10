@@ -3,20 +3,15 @@ cwlVersion: v1.0
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 id: bedgraph_to_bigwig
-baseCommand:
-  - bedGraphToBigWig
+baseCommand: []
 inputs:
   - id: coverage_over_reference_bed_format
     type: File
     inputBinding:
-      position: 100
+      position: 1
       shellQuote: false
   - id: crom_sizes
     type: File
-    inputBinding:
-      position: 101
-      shellQuote: false
-      valueFrom: '${return self.path+".fai"}'
 outputs:
   - id: output
     type: File?
@@ -24,15 +19,25 @@ outputs:
       glob: '*bw'
 label: bedgraph_to_bigwig
 arguments:
-  - position: 0
-    prefix: coverage_over_reference_bw_format
+  - position: 3
+    prefix: ''
     valueFrom: |-
       ${
-          return inputs.coverage_over_reference_bed_format.nameroot + ".bw"
+          return  "coverage.bw"
+      }
+  - position: 0
+    prefix: ''
+    valueFrom: >-
+      ${     return "cp " + inputs.crom_sizes.path + " . && samtools faidx "+
+      inputs.crom_sizes.basename + " && bedGraphToBigWig " }
+  - position: 2
+    prefix: ''
+    valueFrom: |-
+      ${
+          return inputs.crom_sizes.basename + ".fai"
       }
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
     dockerPull: >-
       ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/bedgraph_to_bigwig:2.8
-  - class: InlineJavascriptRequirement
