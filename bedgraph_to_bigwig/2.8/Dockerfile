@@ -2,7 +2,7 @@
 # Bedgraph_to_bigwig
 #######################################################################################################################################################################
 
-FROM ubuntu
+FROM ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/samtools:1.14 
 LABEL maintainer="sagnikbanerjee15@gmail.com" 
 LABEL org.opencontainers.image.source https://github.com/sagnikbanerjee15/dockerized_tools_and_pipelines
 
@@ -21,9 +21,6 @@ RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) 
 
 RUN echo deb http://deb.debian.org/debian/ stretch main >> /etc/apt/sources.list
 RUN apt-get install -y libz-dev ncurses-dev liblzma-dev libbz2-dev libcurl4-openssl-dev
-RUN	apt-get --quiet install --yes   fuse wget curl make zlib1g-dev libffi-dev libncurses5-dev libcurl4-gnutls-dev libssl-dev cmake python3-all-dev
-RUN	apt-get --quiet install --yes zlib1g-dev libbz2-dev liblzma-dev libcurl3-dev 
-RUN apt-get clean
 
 #######################################################################################################################################################################
 # BEDGRAPH-TO-BIGWIG
@@ -34,16 +31,3 @@ RUN mkdir -p /softwares/bedgraphtobigwig && cd /softwares/bedgraphtobigwig &&\
 	chmod +x bedGraphToBigWig
 
 ENV PATH="$PATH:/softwares/bedgraphtobigwig"
-
-
-#######################################################################################################################################################################
-# samtools
-#######################################################################################################################################################################
-
-ARG VERSION=1.14
-RUN mkdir -p /softwares/samtools && \
-	cd /softwares/samtools && \
-	wget https://github.com/samtools/samtools/releases/download/${VERSION}/samtools-${VERSION}.tar.bz2 && \
-	tar jxf samtools-${VERSION}.tar.bz2 && \
-	cd samtools-${VERSION} && make && make install && \
-	cd .. && rm samtools-${VERSION}.tar.bz2
