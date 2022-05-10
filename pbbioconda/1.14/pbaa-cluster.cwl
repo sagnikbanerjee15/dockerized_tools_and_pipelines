@@ -147,12 +147,6 @@ inputs:
       prefix: '--seed'
       shellQuote: false
     doc: Randomization seed
-  - id: pbaa_basecommand
-    type: File?
-    inputBinding:
-      position: 0
-      prefix: pbaa cluster
-      shellQuote: false
 outputs: []
 label: pbaa cluster
 arguments:
@@ -161,7 +155,7 @@ arguments:
     shellQuote: false
     valueFrom: |-
       ${
-          return "cp " + inputs.reference.path + " . && samtools faidx "+ inputs.reference.basename + " && cp " + inputs.raw_reads_in_fastq.path + " . && samtools fqidx " + inputs.reference.basename +" &&"
+          return "cp " + inputs.reference.path + " . && samtools faidx "+ inputs.reference.basename + " && cp " + inputs.raw_reads_in_fastq.path + " . && samtools fqidx " + inputs.reference.basename +" && pbaa cluster "
       }
 requirements:
   - class: ShellCommandRequirement
