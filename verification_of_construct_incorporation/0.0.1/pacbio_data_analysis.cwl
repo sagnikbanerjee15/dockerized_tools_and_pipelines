@@ -34,12 +34,6 @@ inputs:
     'sbg:x': 0
     'sbg:y': 639.65625
 outputs:
-  - id: reference_coverage_bw
-    outputSource:
-      - bedgraph_to_bigwig/output
-    type: File?
-    'sbg:x': 2378.322509765625
-    'sbg:y': -36.332271575927734
   - id: output_fastq
     outputSource:
       - convertsamtofastq/output_fastq
@@ -71,6 +65,12 @@ outputs:
     type: File?
     'sbg:x': 566.2706909179688
     'sbg:y': 548.7802124023438
+  - id: output
+    outputSource:
+      - bedgraph_to_bigwig/output
+    type: File?
+    'sbg:x': 2928.822998046875
+    'sbg:y': 46.67815017700195
 steps:
   - id: samtools_view
     in:
@@ -216,20 +216,6 @@ steps:
     label: generate_annotation_file_for_construct_HA_primers
     'sbg:x': 354.90118408203125
     'sbg:y': 475.78533935546875
-  - id: bedgraph_to_bigwig
-    in:
-      - id: coverage_over_reference_bed_format
-        source: bedtools_genomecoveragebed/output_bed
-      - id: crom_sizes
-        source:
-          - samtools_faidx/output
-          - reference
-    out:
-      - id: output
-    run: ../../bedgraph_to_bigwig/2.8/bedgraph_to_bigwig.cwl
-    label: bedgraph_to_bigwig
-    'sbg:x': 2260.750244140625
-    'sbg:y': 73.93431091308594
   - id: subset_reads_spanning_the_construct
     in:
       - id: reference
@@ -275,6 +261,17 @@ steps:
     label: pbaa cluster
     'sbg:x': 780.9775390625
     'sbg:y': 1041.255126953125
+  - id: bedgraph_to_bigwig
+    in:
+      - id: coverage_over_reference_bed_format
+        source: bedtools_genomecoveragebed/output_bed
+      - id: crom_sizes
+        source: reference
+    out:
+      - id: output
+    run: ../../bedgraph_to_bigwig/2.8/bedgraph_to_bigwig.cwl
+    label: bedgraph_to_bigwig
+    'sbg:x': 2486.458984375
+    'sbg:y': 177.99783325195312
 requirements:
   - class: SubworkflowFeatureRequirement
-  - class: MultipleInputFeatureRequirement
