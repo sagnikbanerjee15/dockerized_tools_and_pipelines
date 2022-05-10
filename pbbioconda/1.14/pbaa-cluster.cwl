@@ -86,11 +86,19 @@ inputs:
     inputBinding:
       position: 101
       shellQuote: false
+      valueFrom: |-
+        ${
+            return self.basename
+        }
   - id: raw_reads_in_fastq
     type: File
     inputBinding:
       position: 102
       shellQuote: false
+      valueFrom: |-
+        ${
+            return self.basename
+        }
   - id: output_prefix
     type: string
     inputBinding:
