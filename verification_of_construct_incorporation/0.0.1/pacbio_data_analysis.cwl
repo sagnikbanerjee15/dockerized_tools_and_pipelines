@@ -178,16 +178,6 @@ steps:
     label: samtools view
     'sbg:x': 2037.1474609375
     'sbg:y': 305.875
-  - id: samtools_faidx
-    in:
-      - id: fa
-        source: reference
-    out:
-      - id: fai
-    run: ../../samtools/1.14/samtools-faidx.cwl
-    label: samtools-faidx
-    'sbg:x': 364.5299987792969
-    'sbg:y': 305.34625244140625
   - id: generate_annotation_file_for_construct_ha_primers
     in:
       - id: reference
