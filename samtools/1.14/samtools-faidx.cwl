@@ -1,15 +1,13 @@
 class: CommandLineTool
 cwlVersion: v1.0
 $namespaces:
-  edam: 'http://edamontology.org/'
   sbg: 'https://www.sevenbridges.com/'
 id: samtools_faidx
 baseCommand:
   - ln
   - '-s'
 inputs:
-  - format: 'edam:format_1929'
-    id: fa
+  - id: fa
     type: File
     inputBinding:
       position: 1
