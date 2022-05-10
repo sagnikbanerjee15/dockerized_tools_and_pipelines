@@ -16,7 +16,7 @@ inputs:
     inputBinding:
       position: 101
       shellQuote: false
-      valueFrom: '101'
+      valueFrom: '${return self.path+".fai"}'
 outputs:
   - id: output
     type: File?
@@ -35,3 +35,4 @@ requirements:
   - class: DockerRequirement
     dockerPull: >-
       ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/bedgraph_to_bigwig:2.8
+  - class: InlineJavascriptRequirement

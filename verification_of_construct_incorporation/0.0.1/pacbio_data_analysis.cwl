@@ -221,7 +221,9 @@ steps:
       - id: coverage_over_reference_bed_format
         source: bedtools_genomecoveragebed/output_bed
       - id: crom_sizes
-        source: samtools_faidx/output
+        source:
+          - samtools_faidx/output
+          - reference
     out:
       - id: output
     run: ../../bedgraph_to_bigwig/2.8/bedgraph_to_bigwig.cwl
@@ -275,3 +277,4 @@ steps:
     'sbg:y': 1041.255126953125
 requirements:
   - class: SubworkflowFeatureRequirement
+  - class: MultipleInputFeatureRequirement
