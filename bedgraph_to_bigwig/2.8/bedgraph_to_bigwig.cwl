@@ -21,17 +21,20 @@ label: bedgraph_to_bigwig
 arguments:
   - position: 3
     prefix: ''
+    shellQuote: false
     valueFrom: |-
       ${
           return  "coverage.bw"
       }
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: >-
       ${     return "cp " + inputs.crom_sizes.path + " . && samtools faidx "+
       inputs.crom_sizes.basename + " && bedGraphToBigWig " }
   - position: 2
     prefix: ''
+    shellQuote: false
     valueFrom: |-
       ${
           return inputs.crom_sizes.basename + ".fai"
