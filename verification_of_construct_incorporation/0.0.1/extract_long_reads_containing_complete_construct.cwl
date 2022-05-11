@@ -28,7 +28,7 @@ arguments:
     shellQuote: false
     valueFrom: |-
       ${
-          return "cat " + inputs.reads_overlapping_partially_with_construct_bed.path + " |cut -f16 > reads_ids_overlapping_partially_with_construct && " + "grep -A 3 --no-group-separator -f reads_ids_overlapping_partially_with_construct " + inputs.raw_reads.path + " > " + inputs.type_of_sequencing + "_reads_overlapping_partially_with_construct.fastq"
+          return "cat " + inputs.reads_overlapping_partially_with_construct_bed.path + " |cut -f16 > reads_ids_overlapping_partially_with_construct && " + "fgrep -A 3 --no-group-separator -f reads_ids_overlapping_partially_with_construct " + inputs.raw_reads.path + " > " + inputs.type_of_sequencing + "_reads_overlapping_partially_with_construct.fastq"
       }
 requirements:
   - class: ShellCommandRequirement
