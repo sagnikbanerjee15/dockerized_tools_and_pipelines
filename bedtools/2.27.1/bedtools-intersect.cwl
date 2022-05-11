@@ -206,7 +206,7 @@ outputs:
   - id: output
     type: File
     outputBinding:
-      glob: '$(inputs.inputA.basename.replace(".gz",""))'
+      glob: '*bed'
 doc: >-
   bedtools intersect allows one to screen for overlaps between two sets of
   genomic features. Moreover, it allows one to have fine control as to how the
