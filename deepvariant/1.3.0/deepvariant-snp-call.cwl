@@ -64,6 +64,7 @@ arguments:
       }
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: |-
       ${
           return "cp " + inputs.reference.path + " . && " + " samtools faidx " + inputs.reference.basename + " && cp " + inputs.reads_mapped_to_reference_bam.path + " . && samtools index " + inputs.reads_mapped_to_reference_bam.basename + " && run_deepvariant "
