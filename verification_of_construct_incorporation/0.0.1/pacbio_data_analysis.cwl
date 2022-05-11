@@ -83,6 +83,12 @@ outputs:
     type: File?
     'sbg:x': 2468.722412109375
     'sbg:y': 542.3655395507812
+  - id: output_vcf
+    outputSource:
+      - deepvariant_snp_call/output_vcf
+    type: File?
+    'sbg:x': 1905.12744140625
+    'sbg:y': 903.5189819335938
 steps:
   - id: samtools_view
     in:
@@ -285,5 +291,17 @@ steps:
     label: bedgraph_to_bigwig
     'sbg:x': 2486.458984375
     'sbg:y': 177.99783325195312
+  - id: deepvariant_snp_call
+    in:
+      - id: reference
+        source: reference
+      - id: reads_mapped_to_reference_bam
+        source: samtools_view_2/output_bam
+    out:
+      - id: output_vcf
+    run: ../../deepvariant/1.3.0/deepvariant-snp-call.cwl
+    label: deepvariant-snp-call
+    'sbg:x': 1672.317138671875
+    'sbg:y': 815.2514038085938
 requirements:
   - class: SubworkflowFeatureRequirement
