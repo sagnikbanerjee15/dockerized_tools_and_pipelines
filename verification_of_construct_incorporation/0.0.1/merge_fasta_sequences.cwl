@@ -46,3 +46,4 @@ requirements:
   - class: DockerRequirement
     dockerPull: >-
       ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/verification_of_construct_incorporation:0.0.1
+  - class: InlineJavascriptRequirement
