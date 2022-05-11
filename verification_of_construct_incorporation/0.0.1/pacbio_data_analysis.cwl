@@ -34,7 +34,7 @@ inputs:
     'sbg:x': 0
     'sbg:y': 639.65625
 outputs:
-  - id: samtofast
+  - id: samtofastq
     outputSource:
       - convertsamtofastq/output_fastq
     type: File?
