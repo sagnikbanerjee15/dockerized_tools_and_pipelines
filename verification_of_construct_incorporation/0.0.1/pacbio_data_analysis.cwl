@@ -283,8 +283,8 @@ steps:
       - id: output_vcf
     run: ../../deepvariant/1.3.0/deepvariant-snp-call.cwl
     label: deepvariant-snp-call
-    'sbg:x': 1672.317138671875
-    'sbg:y': 815.2514038085938
+    'sbg:x': 1706.3809814453125
+    'sbg:y': 795.09521484375
   - id: merge_consensus_sequences
     in:
       - id: whole_consensus_passed
