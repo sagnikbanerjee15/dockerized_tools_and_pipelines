@@ -40,7 +40,7 @@ arguments:
   - position: 0
     prefix: '--output_filename'
     shellQuote: false
-    valueFrom: '"input_fasta_sequences_merged.fasta"'
+    valueFrom: input_fasta_sequences_merged.fasta
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
