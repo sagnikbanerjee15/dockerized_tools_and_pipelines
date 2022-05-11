@@ -284,7 +284,7 @@ steps:
       - id: type
         default: pacbio
       - id: cpu
-        source: threads
+        default: 32
     out:
       - id: output_vcf
     run: ../../deepvariant/1.3.0/deepvariant-snp-call.cwl
