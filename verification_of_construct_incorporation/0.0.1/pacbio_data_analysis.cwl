@@ -59,6 +59,12 @@ outputs:
     type: File?
     'sbg:x': 1905.12744140625
     'sbg:y': 903.5189819335938
+  - id: output_bam
+    outputSource:
+      - samtools_sort_1/output_bam
+    type: File?
+    'sbg:x': 2026.1900634765625
+    'sbg:y': 1124.2733154296875
 steps:
   - id: samtools_view
     in:
@@ -275,5 +281,76 @@ steps:
     label: deepvariant-snp-call
     'sbg:x': 1672.317138671875
     'sbg:y': 815.2514038085938
+  - id: merge_consensus_sequences
+    in:
+      - id: whole_consensus_passed
+        source: pbaa_cluster/output_consensus_passed
+      - id: whole_consensus_failed
+        source: pbaa_cluster/output_consensus_failed
+      - id: construct_consensus_passed
+        source: pbaa_cluster_1/output_consensus_passed
+      - id: construct_consensus_failed
+        source: pbaa_cluster_1/output_consensus_failed
+    out:
+      - id: output_merged_consensus_fasta
+    run: ./merge_consensus_sequences.cwl
+    label: merge_consensus_sequences
+    'sbg:x': 1169.5035400390625
+    'sbg:y': 1056.2900390625
+  - id: minimap3
+    in:
+      - id: output_format
+        default: SAM
+      - id: reference
+        source: reference
+      - id: raw_reads_filename
+        source: merge_consensus_sequences/output_merged_consensus_fasta
+      - id: cs_tag
+        default: true
+      - id: output_MD_tag
+        default: true
+      - id: eqx
+        default: true
+      - id: threads
+        source: threads
+      - id: use_soft_clipping_for_secondary_alignments
+        default: true
+    out:
+      - id: output_sam
+      - id: output_paf
+    run: ../../minimap2/2.24/minimap2.cwl
+    label: minimap2
+    'sbg:x': 1458.97998046875
+    'sbg:y': 1075.03076171875
+  - id: samtools_view_3
+    in:
+      - id: input_alignment
+        source: minimap3/output_sam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-view.cwl
+    label: samtools view
+    'sbg:x': 1656.3287353515625
+    'sbg:y': 1095.9366455078125
+  - id: samtools_sort_1
+    in:
+      - id: input_alignment
+        source: samtools_view_3/output_bam
+      - id: output_format
+        default: BAM
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-sort.cwl
+    label: samtools sort
+    'sbg:x': 1859.2025146484375
+    'sbg:y': 1099.4945068359375
 requirements:
   - class: SubworkflowFeatureRequirement

@@ -8,7 +8,7 @@ baseCommand:
   - sort
 inputs:
   - id: input_alignment
-    type: File?
+    type: File
     inputBinding:
       position: 100
       shellQuote: false
