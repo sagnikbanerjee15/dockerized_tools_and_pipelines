@@ -46,7 +46,7 @@ arguments:
     shellQuote: false
     valueFrom: |-
       ${
-          return "--reads=" + inputs.reads.path
+          return "--reads=" + inputs.reads_mapped_to_reference_bam.path
       }
   - position: 0
     prefix: ''
