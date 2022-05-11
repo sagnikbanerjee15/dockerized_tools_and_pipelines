@@ -57,14 +57,14 @@ outputs:
       - >-
         generate_annotation_file_for_construct_ha_primers/construct_HA_primer_gtf
     type: File?
-    'sbg:x': 504.62884521484375
-    'sbg:y': -708.591064453125
+    'sbg:x': 511.89990234375
+    'sbg:y': -407.80389404296875
   - id: construct_gtf
     outputSource:
       - generate_annotation_file_for_construct_ha_primers/construct_gtf
     type: File?
-    'sbg:x': 595.1997680664062
-    'sbg:y': -557.8221435546875
+    'sbg:x': 519.9509887695312
+    'sbg:y': -207.42955017089844
   - id: bedgraph_to_bigwig
     outputSource:
       - bedgraph_to_bigwig/output
@@ -226,8 +226,8 @@ steps:
       - id: construct_gtf
     run: ./generate_annotation_file_for_construct_ha_primers.cwl
     label: generate_annotation_file_for_construct_HA_primers
-    'sbg:x': 350.0289611816406
-    'sbg:y': -594.9917602539062
+    'sbg:x': 314.4504699707031
+    'sbg:y': -339.2283020019531
   - id: subset_reads_spanning_the_construct
     in:
       - id: reference
