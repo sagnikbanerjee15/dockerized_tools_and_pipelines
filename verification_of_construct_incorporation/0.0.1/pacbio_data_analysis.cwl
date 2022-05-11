@@ -47,12 +47,6 @@ outputs:
     type: File?
     'sbg:x': 519.9509887695312
     'sbg:y': -207.42955017089844
-  - id: bedgraph_to_bigwig
-    outputSource:
-      - bedgraph_to_bigwig/output
-    type: File?
-    'sbg:x': 2652.6669921875
-    'sbg:y': 106.60791015625
   - id: output_vcf
     outputSource:
       - deepvariant_snp_call/output_vcf
@@ -65,6 +59,12 @@ outputs:
     type: File?
     'sbg:x': 2026.1900634765625
     'sbg:y': 1124.2733154296875
+  - id: output
+    outputSource:
+      - bedgraph_to_bigwig/output
+    type: File?
+    'sbg:x': 2920.021484375
+    'sbg:y': -9.202140808105469
 steps:
   - id: samtools_view
     in:
@@ -164,7 +164,7 @@ steps:
   - id: bedtools_genomecoveragebed
     in:
       - id: ibam
-        source: samtools_view_2/output_bam
+        source: samtools_sort_2/output_bam
       - id: d
         default: false
       - id: bga
@@ -173,8 +173,8 @@ steps:
       - id: output_bed
     run: ../../bedtools/2.27.1/bedtools-genomecoveragebed.cwl
     label: bedtools genomecoveragebed
-    'sbg:x': 2302.6015625
-    'sbg:y': 319.78125
+    'sbg:x': 2533.619140625
+    'sbg:y': 262.9047546386719
   - id: samtools_view_2
     in:
       - id: input_alignment
@@ -218,7 +218,7 @@ steps:
         source: construct
       - id: raw_reads_mapped_to_reference_bam
         source:
-          - samtools_view_2/output_bam
+          - samtools_sort_2/output_bam
       - id: raw_reads
         source: convertsamtofastq/output_fastq
     out:
@@ -267,14 +267,14 @@ steps:
       - id: output
     run: ../../bedgraph_to_bigwig/2.8/bedgraph_to_bigwig.cwl
     label: bedgraph_to_bigwig
-    'sbg:x': 2486.458984375
-    'sbg:y': 177.99783325195312
+    'sbg:x': 2716.047607421875
+    'sbg:y': 95.66661834716797
   - id: deepvariant_snp_call
     in:
       - id: reference
         source: reference
       - id: reads_mapped_to_reference_bam
-        source: samtools_view_2/output_bam
+        source: samtools_sort_2/output_bam
       - id: type
         default: pacbio
       - id: cpu
@@ -358,5 +358,19 @@ steps:
     label: samtools sort
     'sbg:x': 1859.2025146484375
     'sbg:y': 1099.4945068359375
+  - id: samtools_sort_2
+    in:
+      - id: input_alignment
+        source: samtools_view_2/output_bam
+      - id: output_format
+        default: BAM
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-sort.cwl
+    label: samtools sort
+    'sbg:x': 2238.52392578125
+    'sbg:y': 347.1429748535156
 requirements:
   - class: SubworkflowFeatureRequirement

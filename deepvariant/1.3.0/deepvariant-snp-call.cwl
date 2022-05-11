@@ -61,7 +61,7 @@ arguments:
     shellQuote: false
     valueFrom: |-
       ${
-          return "--num_shards="+inputs.cpu
+          return "--num_shards=" + inputs.cpu
       }
 requirements:
   - class: ShellCommandRequirement
