@@ -11,8 +11,8 @@ inputs:
     'sbg:y': -136.84185791015625
   - id: threads
     type: int?
-    'sbg:x': 967.1021118164062
-    'sbg:y': -315.7394714355469
+    'sbg:x': 916.4781494140625
+    'sbg:y': -365.5218505859375
   - id: reference
     type: File
     'sbg:x': 0
@@ -246,8 +246,8 @@ steps:
       - id: output_consensus_failed
     run: ../../pbbioconda/1.14/pbaa-cluster.cwl
     label: pbaa cluster
-    'sbg:x': 580.433837890625
-    'sbg:y': 1039.3826904296875
+    'sbg:x': 737.3949584960938
+    'sbg:y': 1169.19091796875
   - id: pbaa_cluster_1
     in:
       - id: reference
@@ -285,6 +285,7 @@ steps:
         default: pacbio
       - id: cpu
         default: 32
+        source: threads
     out:
       - id: output_vcf
     run: ../../deepvariant/1.3.0/deepvariant-snp-call.cwl
