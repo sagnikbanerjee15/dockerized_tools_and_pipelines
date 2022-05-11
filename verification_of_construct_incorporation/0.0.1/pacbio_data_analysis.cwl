@@ -71,6 +71,12 @@ outputs:
     type: File?
     'sbg:x': 2401.41357421875
     'sbg:y': 640.6514892578125
+  - id: output_merged_consensus_fasta
+    outputSource:
+      - merge_consensus_sequences/output_merged_consensus_fasta
+    type: File?
+    'sbg:x': 1387.4625244140625
+    'sbg:y': 1324.670654296875
 steps:
   - id: samtools_view
     in:
@@ -284,7 +290,6 @@ steps:
       - id: type
         default: pacbio
       - id: cpu
-        default: 32
         source: threads
     out:
       - id: output_vcf
