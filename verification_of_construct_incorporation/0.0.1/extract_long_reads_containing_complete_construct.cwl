@@ -18,6 +18,7 @@ inputs:
       name: type_of_sequencing
     inputBinding:
       position: 0
+      shellQuote: false
 outputs:
   - id: output_fastq
     type: File?
@@ -27,11 +28,13 @@ label: extract_long_reads_containing_complete_construct
 arguments:
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: |-
       ${
           return "cat " + inputs.reads_overlapping_partially_with_construct_bed.path + " |cut -f16 > reads_ids_overlapping_partially_with_construct && " + "grep -A 3 --no-group-separator -f reads_ids_overlapping_partially_with_construct " + inputs.raw_reads.path + " > " + inputs.type_of_sequencing + "_reads_overlapping_partially_with_construct.fastq"
       }
 requirements:
+  - class: ShellCommandRequirement
   - class: DockerRequirement
     dockerPull: ubuntu
   - class: InlineJavascriptRequirement
