@@ -77,6 +77,12 @@ outputs:
     type: File?
     'sbg:x': 1100.8858642578125
     'sbg:y': 923.2574462890625
+  - id: genomecoeragebed
+    outputSource:
+      - bedtools_genomecoveragebed/output_bed
+    type: File?
+    'sbg:x': 2468.722412109375
+    'sbg:y': 542.3655395507812
 steps:
   - id: samtools_view
     in:
