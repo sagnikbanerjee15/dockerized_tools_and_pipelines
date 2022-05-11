@@ -34,7 +34,7 @@ inputs:
     'sbg:x': 0
     'sbg:y': 639.65625
 outputs:
-  - id: output_fastq
+  - id: samtofast
     outputSource:
       - convertsamtofastq/output_fastq
     type: File?
@@ -46,7 +46,7 @@ outputs:
     type: File?
     'sbg:x': 736.6906127929688
     'sbg:y': 1195.7142333984375
-  - id: output_consensus_
+  - id: output_consensus_construct
     outputSource:
       - pbaa_cluster_1/output_consensus
     type: File?
@@ -65,13 +65,13 @@ outputs:
     type: File?
     'sbg:x': 566.2706909179688
     'sbg:y': 548.7802124023438
-  - id: output
+  - id: bedgraph_to_bigwig
     outputSource:
       - bedgraph_to_bigwig/output
     type: File?
     'sbg:x': 2652.6669921875
     'sbg:y': 106.60791015625
-  - id: output_fastq_1
+  - id: subset_of_reads_spanning_the_construct
     outputSource:
       - subset_reads_spanning_the_construct/output_fastq
     type: File?
