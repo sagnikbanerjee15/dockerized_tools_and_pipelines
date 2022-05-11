@@ -40,13 +40,13 @@ outputs:
     type: File?
     'sbg:x': 775.9324951171875
     'sbg:y': -80.70379638671875
-  - id: output_consensus
+  - id: output_consensus_whole
     outputSource:
       - pbaa_cluster/output_consensus
     type: File?
     'sbg:x': 736.6906127929688
     'sbg:y': 1195.7142333984375
-  - id: output_consensus_1
+  - id: output_consensus_
     outputSource:
       - pbaa_cluster_1/output_consensus
     type: File?
@@ -71,6 +71,12 @@ outputs:
     type: File?
     'sbg:x': 2652.6669921875
     'sbg:y': 106.60791015625
+  - id: output_fastq_1
+    outputSource:
+      - subset_reads_spanning_the_construct/output_fastq
+    type: File?
+    'sbg:x': 1100.8858642578125
+    'sbg:y': 923.2574462890625
 steps:
   - id: samtools_view
     in:
@@ -259,8 +265,8 @@ steps:
       - id: output_consensus
     run: ../../pbbioconda/1.14/pbaa-cluster.cwl
     label: pbaa cluster
-    'sbg:x': 780.9775390625
-    'sbg:y': 1041.255126953125
+    'sbg:x': 849.74609375
+    'sbg:y': 979.0034790039062
   - id: bedgraph_to_bigwig
     in:
       - id: coverage_over_reference_bed_format
