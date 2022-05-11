@@ -16,9 +16,6 @@ inputs:
         - nanopore
         - pacbio
       name: type_of_sequencing
-    inputBinding:
-      position: 0
-      shellQuote: false
 outputs:
   - id: output_fastq
     type: File?
