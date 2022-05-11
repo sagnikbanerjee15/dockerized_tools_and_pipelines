@@ -65,6 +65,12 @@ outputs:
     type: File?
     'sbg:x': 2920.021484375
     'sbg:y': -9.202140808105469
+  - id: output_bam_1
+    outputSource:
+      - samtools_sort_2/output_bam
+    type: File?
+    'sbg:x': 2401.41357421875
+    'sbg:y': 640.6514892578125
 steps:
   - id: samtools_view
     in:
