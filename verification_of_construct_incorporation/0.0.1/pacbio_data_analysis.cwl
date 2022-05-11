@@ -83,12 +83,6 @@ outputs:
     type: File?
     'sbg:x': 2468.722412109375
     'sbg:y': 542.3655395507812
-  - id: output_vcf
-    outputSource:
-      - deepvariant_snp_call/output_vcf
-    type: File?
-    'sbg:x': 1859.8250732421875
-    'sbg:y': 987.7837524414062
 steps:
   - id: samtools_view
     in:
@@ -249,8 +243,8 @@ steps:
       - id: output_fastq
     run: ./subset_reads_spanning_the_construct.cwl
     label: subset_reads_spanning_the_construct
-    'sbg:x': 953.411865234375
-    'sbg:y': 681.9188232421875
+    'sbg:x': 884.4108276367188
+    'sbg:y': 735.7080078125
   - id: pbaa_cluster
     in:
       - id: reference
@@ -291,19 +285,5 @@ steps:
     label: bedgraph_to_bigwig
     'sbg:x': 2486.458984375
     'sbg:y': 177.99783325195312
-  - id: deepvariant_snp_call
-    in:
-      - id: reference
-        source: reference
-      - id: reads_mapped_to_reference_bam
-        source: samtools_view_2/output_bam
-      - id: type
-        default: pacbio
-    out:
-      - id: output_vcf
-    run: ../../deepvariant/1.3.0/deepvariant-snp-call.cwl
-    label: deepvariant-snp-call
-    'sbg:x': 1612.3807373046875
-    'sbg:y': 902
 requirements:
   - class: SubworkflowFeatureRequirement
