@@ -34,3 +34,4 @@ arguments:
 requirements:
   - class: DockerRequirement
     dockerPull: ubuntu
+  - class: InlineJavascriptRequirement
