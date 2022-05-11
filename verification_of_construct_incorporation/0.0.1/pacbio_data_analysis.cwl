@@ -275,6 +275,8 @@ steps:
         source: reference
       - id: reads_mapped_to_reference_bam
         source: samtools_view_2/output_bam
+      - id: type
+        default: pacbio
     out:
       - id: output_vcf
     run: ../../deepvariant/1.3.0/deepvariant-snp-call.cwl
