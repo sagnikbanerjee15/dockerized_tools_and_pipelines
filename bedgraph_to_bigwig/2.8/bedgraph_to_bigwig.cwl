@@ -41,3 +41,4 @@ requirements:
   - class: DockerRequirement
     dockerPull: >-
       ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/bedgraph_to_bigwig:2.8
+  - class: InlineJavascriptRequirement
