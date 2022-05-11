@@ -277,6 +277,8 @@ steps:
         source: samtools_view_2/output_bam
       - id: type
         default: pacbio
+      - id: cpu
+        source: threads
     out:
       - id: output_vcf
     run: ../../deepvariant/1.3.0/deepvariant-snp-call.cwl
