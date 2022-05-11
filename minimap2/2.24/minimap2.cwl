@@ -126,12 +126,10 @@ arguments:
   - position: 0
     prefix: ''
     shellQuote: false
-    valueFrom: |-
-      ${ 
-          if(inputs.use_soft_clipping_for_secondary_alignments)
-          { 
-              return "-Y" 
-          } 
+    valueFrom: >-
+      ${ if(inputs.use_soft_clipping_for_secondary_alignments){ return "-Y" }
+      else {return ""}
+
       }
 requirements:
   - class: ShellCommandRequirement
