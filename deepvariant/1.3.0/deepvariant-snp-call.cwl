@@ -17,7 +17,8 @@ inputs:
         - nanopore
         - pacbio
       name: type
-  - id: cpu
+  - 'sbg:toolDefaultValue': '1'
+    id: cpu
     type: int?
 outputs:
   - id: output_vcf
