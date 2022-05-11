@@ -148,10 +148,14 @@ inputs:
       shellQuote: false
     doc: Randomization seed
 outputs:
-  - id: output_consensus
+  - id: output_consensus_passed
     type: File?
     outputBinding:
       glob: '*passed_cluster_sequences.fasta'
+  - id: output_consensus_failed
+    type: File?
+    outputBinding:
+      glob: '*failed_cluster_sequences.fasta'
 label: pbaa cluster
 arguments:
   - position: -2

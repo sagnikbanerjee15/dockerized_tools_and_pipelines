@@ -34,24 +34,6 @@ inputs:
     'sbg:x': 0
     'sbg:y': 639.65625
 outputs:
-  - id: samtofastq
-    outputSource:
-      - convertsamtofastq/output_fastq
-    type: File?
-    'sbg:x': 775.9324951171875
-    'sbg:y': -80.70379638671875
-  - id: output_consensus_whole
-    outputSource:
-      - pbaa_cluster/output_consensus
-    type: File?
-    'sbg:x': 736.6906127929688
-    'sbg:y': 1195.7142333984375
-  - id: output_consensus_construct
-    outputSource:
-      - pbaa_cluster_1/output_consensus
-    type: File?
-    'sbg:x': 981.56591796875
-    'sbg:y': 1151.041015625
   - id: construct_HA_primer_gtf
     outputSource:
       - >-
@@ -71,18 +53,6 @@ outputs:
     type: File?
     'sbg:x': 2652.6669921875
     'sbg:y': 106.60791015625
-  - id: subset_of_reads_spanning_the_construct
-    outputSource:
-      - subset_reads_spanning_the_construct/output_fastq
-    type: File?
-    'sbg:x': 1100.8858642578125
-    'sbg:y': 923.2574462890625
-  - id: genomecoveragebed
-    outputSource:
-      - bedtools_genomecoveragebed/output_bed
-    type: File?
-    'sbg:x': 2468.722412109375
-    'sbg:y': 542.3655395507812
   - id: output_vcf
     outputSource:
       - deepvariant_snp_call/output_vcf
@@ -260,7 +230,8 @@ steps:
       - id: output_prefix
         default: whole
     out:
-      - id: output_consensus
+      - id: output_consensus_passed
+      - id: output_consensus_failed
     run: ../../pbbioconda/1.14/pbaa-cluster.cwl
     label: pbaa cluster
     'sbg:x': 580.433837890625
@@ -274,7 +245,8 @@ steps:
       - id: output_prefix
         default: construct_spanning
     out:
-      - id: output_consensus
+      - id: output_consensus_passed
+      - id: output_consensus_failed
     run: ../../pbbioconda/1.14/pbaa-cluster.cwl
     label: pbaa cluster
     'sbg:x': 849.74609375
