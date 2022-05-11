@@ -291,6 +291,8 @@ steps:
         source: pbaa_cluster_1/output_consensus_passed
       - id: construct_consensus_failed
         source: pbaa_cluster_1/output_consensus_failed
+      - id: output_filename_prefix
+        default: all_consensus_sequences
     out:
       - id: output_merged_consensus_fasta
     run: ./merge_consensus_sequences.cwl
