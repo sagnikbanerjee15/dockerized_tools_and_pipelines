@@ -10,7 +10,7 @@ inputs:
     'sbg:x': 0
     'sbg:y': -136.84185791015625
   - id: threads
-    type: int?
+    type: int
     'sbg:x': 916.4781494140625
     'sbg:y': -365.5218505859375
   - id: reference
