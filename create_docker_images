@@ -14,19 +14,16 @@ import sys
 
 def parseCommandLineArguments():
 
-    parser = argparse.ArgumentParser( prog = "create_docker_images", description = """Generates docker images and test out cwl scripts. Assumes that cwltool is pre-installed.
-    A few commands are tested for each cwl script.
-    This is done to ensure that the command is working properly, not to test the entire extent of what the command can do.
-    Please note that depending on what you provide as input your command may fail.""", formatter_class = RawTextHelpFormatter )
+    parser = argparse.ArgumentParser( prog = "create_docker_images", description = """Generates docker images and pushes those to registries""", formatter_class = RawTextHelpFormatter )
 
-    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines"], nargs = '+' )
+    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines", "483421617021.dkr.ecr.us-east-1.amazonaws.com"], nargs = '+' )
     parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
     parser.add_argument( "--only_pull", "-only_pull", help = "Only pull from ghcr do not push", action = "store_true" )
     parser.add_argument( "--skip_these", "-skip_these", help = "Enter the list of tools to skip processing", nargs = '*' )
     parser.add_argument( "--process_only_these", "-process_only_these", help = "Enter the list of tools to process. Everything else will be ignored", nargs = '*' )
-    parser.add_argument( "--only_test_cwl_scripts", "-only_test_cwl_scripts", help = "Perform CWL tests", action = "store_true" )
+    # parser.add_argument( "--only_test_cwl_scripts", "-only_test_cwl_scripts", help = "Perform CWL tests", action = "store_true" )
     return parser.parse_args()
 
 
@@ -61,36 +58,51 @@ def main():
     process_only_these = [tool for tool in tools_with_version_and_dockerfiles if tool in options.process_only_these]
     options.skip_these = set( options.skip_these ) | ( set( [tool for tool in tools_with_version_and_dockerfiles ] ) - set( process_only_these ) )
 
+    # Build the docker tools
     for tool in tools_with_version_and_dockerfiles:
         if options.skip_these is not None and tool in options.skip_these: continue
         for version in tools_with_version_and_dockerfiles[tool]:
-            if options.only_test_cwl_scripts == False:
-                if version != "latest":
-                    print( f"Changing to {current_directory}/{tool}/{version}" )
+            if version != "latest":
+                print( f"Changing to {current_directory}/{tool}/{version}" )
+                sys.stdout.flush()
+                os.chdir( f"{current_directory}/{tool}/{version}" )
+            else:
+                print( f"Changing to {current_directory}/{tool}" )
+                sys.stdout.flush()
+                os.chdir( f"{current_directory}/{tool}" )
+            for docker_hub in options.docker_hub:
+                # Attempt to pull from ghcr
+                cmd = f"docker pull {docker_hub}/{tool.lower()}:{version}"
+                print( cmd )
+                os.system( cmd )
+                sys.stdout.flush()
+
+                if options.only_pull == False:
+                    cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
+                    print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
                     sys.stdout.flush()
-                    os.chdir( f"{current_directory}/{tool}/{version}" )
-                else:
-                    print( f"Changing to {current_directory}/{tool}" )
-                    sys.stdout.flush()
-                    os.chdir( f"{current_directory}/{tool}" )
-                for docker_hub in options.docker_hub:
-                    # Attempt to pull from ghcr
-                    cmd = f"docker pull {docker_hub}/{tool.lower()}:{version}"
+                    os.system( cmd )
+
+            os.chdir( f"{current_directory}" )
+
+    # Perform push operation for each kind of hub
+    for docker_hub in options.docker_hub:
+        if "483421617021" in docker_hub:
+            os.system( f"aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 483421617021.dkr.ecr.us-east-1.amazonaws.com" )
+        elif "ghcr" in docker_hub:
+            os.environ["CR_PAT"] = "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"
+            os.system( f"echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin" )
+        for tool in tools_with_version_and_dockerfiles:
+            if options.skip_these is not None and tool in options.skip_these: continue
+            for version in tools_with_version_and_dockerfiles[tool]:
+                if options.only_pull == False:
+                    if "483421617021" in docker_hub:
+                        cmd = f"docker push {docker_hub}/baners23/{tool.lower()}:{version}"
+                    elif "ghcr" in docker_hub:
+                        cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
                     print( cmd )
                     os.system( cmd )
                     sys.stdout.flush()
-
-                    if options.only_pull == False:
-                        cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
-                        print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
-                        sys.stdout.flush()
-                        os.system( cmd )
-
-                        cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
-                        print( cmd )
-                        os.system( cmd )
-                        sys.stdout.flush()
-                os.chdir( f"{current_directory}" )
 
 
 if __name__ == "__main__":
