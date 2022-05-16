@@ -103,7 +103,7 @@ def main():
             for version in tools_with_version_and_dockerfiles[tool]:
                 if options.only_pull == False:
                     if "483421617021" in docker_hub:
-                        os.system( f"aws ecr create-repository --repository-name {docker_hub}/baners23/{tool.lower()}" )
+                        os.system( f"aws ecr create-repository --repository-name baners23/{tool.lower()}" )
                         cmd = f"docker push {docker_hub}/baners23/{tool.lower()}:{version}"
                     elif "ghcr" in docker_hub:
                         cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
