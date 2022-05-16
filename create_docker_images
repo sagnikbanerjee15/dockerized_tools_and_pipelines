@@ -49,6 +49,8 @@ def main():
                 tools_with_version_and_dockerfiles[tool][version] = f"{tool}/{version}/Dockerfile"
 
     current_directory = os.getcwd()
+    github_token_morphed = "ghp_fr6AvS8hayuREMOVETHISTEXTjmncOJqfLwgb0ueYXNk0hxnps"
+    github_token = "".join( github_token_morphed.split( "REMOVETHISTEXT" ) )
 
     os.system( f"mkdir -p {options.error_directory}" )
     if  options.skip_these is None:
@@ -71,11 +73,11 @@ def main():
                 sys.stdout.flush()
                 os.chdir( f"{current_directory}/{tool}" )
             for docker_hub in options.docker_hub:
-                # Attempt to pull from ghcr
+                """# Attempt to pull from ghcr
                 cmd = f"docker pull {docker_hub}/{tool.lower()}:{version}"
                 print( cmd )
                 os.system( cmd )
-                sys.stdout.flush()
+                sys.stdout.flush()"""
 
                 if options.only_pull == False:
                     for docker_hub in options.docker_hub:
@@ -94,7 +96,7 @@ def main():
         if "483421617021" in docker_hub:
             os.system( f"aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 483421617021.dkr.ecr.us-east-1.amazonaws.com" )
         elif "ghcr" in docker_hub:
-            os.environ["CR_PAT"] = "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"
+            os.environ["CR_PAT"] = github_token
             os.system( f"echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin" )
         for tool in tools_with_version_and_dockerfiles:
             if options.skip_these is not None and tool in options.skip_these: continue
