@@ -82,9 +82,9 @@ def main():
                 if options.only_pull == False:
                     for docker_hub in options.docker_hub:
                         if "483421617021" in docker_hub:
-                            cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
-                        elif "ghcr" in docker_hub:
                             cmd = f"docker build -t {docker_hub}/baners23/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
+                        elif "ghcr" in docker_hub:
+                            cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
                         print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
                         sys.stdout.flush()
                         os.system( cmd )
