@@ -85,7 +85,7 @@ arguments:
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
-    dockerPull: 'ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines/samtools:1.14'
+    dockerPull: 'ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/samtools:1.14'
   - class: InlineJavascriptRequirement
 stdout: |-
   ${

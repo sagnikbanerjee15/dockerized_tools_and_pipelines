@@ -32,14 +32,15 @@ inputs:
           - PAF
         name: output_format
   - id: reference
-    type: File?
+    type: File
     inputBinding:
       position: 99
       shellQuote: false
   - id: raw_reads_filename
-    type: File?
+    type: File
     inputBinding:
       position: 100
+      shellQuote: false
   - id: cs_tag
     type: boolean?
   - id: output_MD_tag
@@ -52,25 +53,22 @@ inputs:
     inputBinding:
       position: 0
       prefix: '-t'
+      shellQuote: false
+  - id: use_soft_clipping_for_secondary_alignments
+    type: boolean?
 outputs:
   - id: output_sam
     type: File?
     outputBinding:
-      glob: |-
-        ${
-            return '*' + inputs.raw_reads_filename.nameroot + ".sam";
-        }
+      glob: '*sam'
   - id: output_paf
     type: File?
     outputBinding:
-      glob: |-
-        ${
-            return '*' + inputs.raw_reads_filename.nameroot + ".paf"
-        }
+      glob: '*paf'
 label: minimap2
 arguments:
   - position: 0
-    prefix: activate_homopolymer_kmer
+    prefix: ''
     shellQuote: false
     valueFrom: |-
       ${
@@ -87,15 +85,16 @@ arguments:
       }
   - position: 0
     prefix: '-o'
+    shellQuote: false
     valueFrom: |-
       ${
           if(inputs.output_format=="SAM")
           {
-              return inputs.raw_reads_filename.nameroot + ".sam"
+              return inputs.raw_reads_filename.nameroot + "_aligned.sam"
           }
           else(inputs.output_format=="PAF")
           {
-              return inputs.raw_reads_filename.nameroot + ".paf"
+              return inputs.raw_reads_filename.nameroot + "_aligned.paf"
           }
       }
   - position: 0
@@ -114,6 +113,7 @@ arguments:
       }
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: |-
       ${
           if(inputs.output_MD_tag) { return "--MD" }
@@ -121,9 +121,18 @@ arguments:
       }
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: '${ if(inputs.eqx) {return "--eqx"} else {return ""} }'
+  - position: 0
+    prefix: ''
+    shellQuote: false
+    valueFrom: >-
+      ${ if(inputs.use_soft_clipping_for_secondary_alignments){ return "-Y" }
+      else {return ""}
+
+      }
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
-    dockerPull: 'ghcr.io/sagnikbanerjee15/docker_tools_and_pipelines/minimap2:2.24'
+    dockerPull: 'ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/minimap2:2.24'
   - class: InlineJavascriptRequirement
