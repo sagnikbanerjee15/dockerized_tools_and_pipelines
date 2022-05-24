@@ -10,21 +10,19 @@ inputs:
     inputBinding:
       position: 0
       prefix: '-t'
-      separate: false
       shellQuote: false
   - id: reference
     type: File
     inputBinding:
       position: 0
       prefix: '-d'
-      separate: false
       shellQuote: false
+      valueFrom: '${return self.basename}'
   - id: input_fastq
     type: File
     inputBinding:
       position: 0
       prefix: '-i'
-      separate: false
       shellQuote: false
 outputs:
   - id: consensus
