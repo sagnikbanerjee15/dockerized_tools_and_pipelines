@@ -13,4 +13,4 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Medaka
 #######################################################################################################################################################################
 
-RUN conda install -c bioconda medaka
+RUN conda create -n medaka -c bioconda -c conda-forge medaka=1.6.0
