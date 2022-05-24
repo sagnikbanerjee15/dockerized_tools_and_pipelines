@@ -23,8 +23,8 @@ inputs:
     'sbg:y': 0
   - id: primers
     type: File?
-    'sbg:x': 0
-    'sbg:y': 426.3515625
+    'sbg:x': -4.4387054443359375
+    'sbg:y': 390.4903564453125
   - id: five_prime_homology_arm
     type: File?
     'sbg:x': 0
