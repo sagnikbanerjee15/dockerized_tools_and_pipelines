@@ -10,18 +10,21 @@ inputs:
     inputBinding:
       position: 0
       prefix: '-t'
+      separate: false
       shellQuote: false
   - id: reference
     type: File
     inputBinding:
       position: 0
       prefix: '-d'
+      separate: false
       shellQuote: false
   - id: input_fastq
     type: File
     inputBinding:
       position: 0
       prefix: '-i'
+      separate: false
       shellQuote: false
 outputs:
   - id: consensus
@@ -39,6 +42,7 @@ arguments:
     valueFrom: '${return "nanopore_consensus"}'
   - position: 0
     prefix: ''
+    shellQuote: false
     valueFrom: |-
       ${
           return "cp " + inputs.reference.path + " . && " + " samtools faidx " + inputs.reference.basename + " && medaka_consensus "
