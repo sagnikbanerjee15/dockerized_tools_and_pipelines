@@ -3,8 +3,7 @@ cwlVersion: v1.0
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 id: medaka
-baseCommand:
-  - medaka_consensus
+baseCommand: []
 inputs:
   - id: threads
     type: int?
@@ -31,12 +30,19 @@ outputs:
       glob: '${return "nanopore_consensus/*consensus.fasta"}'
 label: medaka
 arguments:
-  - position: 0
+  - position: 1
     prefix: '-f'
     shellQuote: false
-  - position: 0
+  - position: 2
     prefix: '-o'
+    shellQuote: false
     valueFrom: '${return "nanopore_consensus"}'
+  - position: 0
+    prefix: ''
+    valueFrom: |-
+      ${
+          return "cp " + inputs.reference.path + " . && " + " samtools faidx " + inputs.reference.basename + " && medaka_consensus "
+      }
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
