@@ -53,7 +53,7 @@ outputs:
     type: File?
     'sbg:x': 1056.2357177734375
     'sbg:y': 393.3792724609375
-  - id: output
+  - id: coverage
     outputSource:
       - bedgraph_to_bigwig/output
     type: File?
@@ -123,7 +123,7 @@ steps:
       - id: input_alignment
         source: samtools_view/output_bam
       - id: output_format
-        default: BAM
+        default: SAM
       - id: threads
         source: threads
       - id: sort_by_name
