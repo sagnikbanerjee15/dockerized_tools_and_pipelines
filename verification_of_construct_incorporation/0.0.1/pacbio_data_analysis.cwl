@@ -53,19 +53,19 @@ outputs:
     type: File?
     'sbg:x': 1905.12744140625
     'sbg:y': 903.5189819335938
-  - id: output_bam
+  - id: consensus_mapped_to_reference_bam
     outputSource:
       - samtools_sort_1/output_bam
     type: File?
     'sbg:x': 2026.1900634765625
     'sbg:y': 1124.2733154296875
-  - id: output
+  - id: coverage
     outputSource:
       - bedgraph_to_bigwig/output
     type: File?
     'sbg:x': 2920.021484375
     'sbg:y': -9.202140808105469
-  - id: output_bam_1
+  - id: raw_reads_mapped_to_reference_bam
     outputSource:
       - samtools_sort_2/output_bam
     type: File?

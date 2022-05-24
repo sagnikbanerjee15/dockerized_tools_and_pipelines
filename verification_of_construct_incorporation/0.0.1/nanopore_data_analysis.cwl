@@ -11,8 +11,8 @@ inputs:
     'sbg:y': -438.83319091796875
   - id: reference
     type: File
-    'sbg:x': -908.8624877929688
-    'sbg:y': -168.88734436035156
+    'sbg:x': -920.5309448242188
+    'sbg:y': -140.84962463378906
   - id: raw_reads_fastq
     type: File
     'sbg:x': -908.1009521484375
@@ -47,6 +47,18 @@ outputs:
     type: File?
     'sbg:x': -284.1935729980469
     'sbg:y': -418.1564025878906
+  - id: output_bam
+    outputSource:
+      - samtools_sort_1/output_bam
+    type: File?
+    'sbg:x': 1056.2357177734375
+    'sbg:y': 393.3792724609375
+  - id: output
+    outputSource:
+      - bedgraph_to_bigwig/output
+    type: File?
+    'sbg:x': 1483.3304443359375
+    'sbg:y': -70.13324737548828
 steps:
   - id: minimap2
     in:
@@ -110,8 +122,12 @@ steps:
     in:
       - id: input_alignment
         source: samtools_view/output_bam
+      - id: output_format
+        default: BAM
       - id: threads
         source: threads
+      - id: sort_by_name
+        default: true
     out:
       - id: output_bam
       - id: output_sam
@@ -120,5 +136,69 @@ steps:
     label: samtools sort
     'sbg:x': 170.1985626220703
     'sbg:y': -77.68306732177734
+  - id: removepooralignments
+    in:
+      - id: input_samfilename
+        source: samtools_sort/output_sam
+    out:
+      - id: output_sam
+    run: ./removepooralignments.cwl
+    label: removePoorAlignments
+    'sbg:x': 400.8860778808594
+    'sbg:y': -49.89140701293945
+  - id: samtools_view_1
+    in:
+      - id: input_alignment
+        source: removepooralignments/output_sam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-view.cwl
+    label: samtools view
+    'sbg:x': 601.502685546875
+    'sbg:y': -32.69550704956055
+  - id: samtools_sort_1
+    in:
+      - id: input_alignment
+        source: samtools_view_1/output_bam
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-sort.cwl
+    label: samtools sort
+    'sbg:x': 828.0722045898438
+    'sbg:y': -12.731947898864746
+  - id: bedtools_genomecoveragebed
+    in:
+      - id: ibam
+        source: samtools_sort_1/output_bam
+      - id: bga
+        default: true
+    out:
+      - id: output_bed
+    run: ../../bedtools/2.27.1/bedtools-genomecoveragebed.cwl
+    label: bedtools genomecoveragebed
+    'sbg:x': 1089.7012939453125
+    'sbg:y': -53.089351654052734
+  - id: bedgraph_to_bigwig
+    in:
+      - id: coverage_over_reference_bed_format
+        source: bedtools_genomecoveragebed/output_bed
+      - id: crom_sizes
+        source: reference
+    out:
+      - id: output
+    run: ../../bedgraph_to_bigwig/2.8/bedgraph_to_bigwig.cwl
+    label: bedgraph_to_bigwig
+    'sbg:x': 1295.6107177734375
+    'sbg:y': -180.5395965576172
 requirements:
   - class: SubworkflowFeatureRequirement
