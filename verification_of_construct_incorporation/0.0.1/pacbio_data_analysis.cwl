@@ -53,7 +53,7 @@ outputs:
     type: File?
     'sbg:x': 1905.12744140625
     'sbg:y': 903.5189819335938
-  - id: consensus_mapped_to_reference_bam
+  - id: pacbio_consensus_mapped_to_reference_bam
     outputSource:
       - samtools_sort_1/output_bam
     type: File?

@@ -51,14 +51,20 @@ outputs:
     outputSource:
       - samtools_sort_1/output_bam
     type: File?
-    'sbg:x': 1056.2357177734375
-    'sbg:y': 393.3792724609375
+    'sbg:x': 1079.3994140625
+    'sbg:y': 182.40530395507812
   - id: coverage
     outputSource:
       - bedgraph_to_bigwig/output
     type: File?
     'sbg:x': 1483.3304443359375
     'sbg:y': -70.13324737548828
+  - id: nanopore_consensus_mapped_to_reference_bam
+    outputSource:
+      - samtools_sort_2/output_bam
+    type: File?
+    'sbg:x': 735.728271484375
+    'sbg:y': 636.8272094726562
 steps:
   - id: minimap2
     in:
@@ -200,5 +206,74 @@ steps:
     label: bedgraph_to_bigwig
     'sbg:x': 1295.6107177734375
     'sbg:y': -180.5395965576172
+  - id: medaka
+    in:
+      - id: threads
+        source: threads
+      - id: reference
+        source: reference
+      - id: input_fastq
+        source: raw_reads_fastq
+    out:
+      - id: consensus
+    run: ../../medaka/1.6.0/medaka.cwl
+    label: medaka
+    'sbg:x': -154.9082794189453
+    'sbg:y': 438.41717529296875
+  - id: minimap3
+    in:
+      - id: output_format
+        default: SAM
+      - id: reference
+        source: reference
+      - id: raw_reads_filename
+        source: medaka/consensus
+      - id: cs_tag
+        default: true
+      - id: output_MD_tag
+        default: true
+      - id: eqx
+        default: true
+      - id: threads
+        source: threads
+    out:
+      - id: output_sam
+      - id: output_paf
+    run: ../../minimap2/2.24/minimap2.cwl
+    label: minimap2
+    'sbg:x': 159.2534637451172
+    'sbg:y': 443.250244140625
+  - id: samtools_view_2
+    in:
+      - id: input_alignment
+        source: minimap3/output_sam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-view.cwl
+    label: samtools view
+    'sbg:x': 433.4349060058594
+    'sbg:y': 440.7100524902344
+  - id: samtools_sort_2
+    in:
+      - id: input_alignment
+        source: samtools_view_2/output_bam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-sort.cwl
+    label: samtools sort
+    'sbg:x': 622
+    'sbg:y': 430.1153564453125
 requirements:
   - class: SubworkflowFeatureRequirement
