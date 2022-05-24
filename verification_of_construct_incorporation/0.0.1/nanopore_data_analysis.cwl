@@ -11,8 +11,8 @@ inputs:
     'sbg:y': -438.83319091796875
   - id: reference
     type: File
-    'sbg:x': -920.5309448242188
-    'sbg:y': -140.84962463378906
+    'sbg:x': -936.0846557617188
+    'sbg:y': -148.04232788085938
   - id: raw_reads_fastq
     type: File
     'sbg:x': -908.1009521484375
@@ -47,7 +47,7 @@ outputs:
     type: File?
     'sbg:x': -284.1935729980469
     'sbg:y': -418.1564025878906
-  - id: output_bam
+  - id: raw_reads_mapped_to_reference_bam
     outputSource:
       - samtools_sort_1/output_bam
     type: File?
