@@ -6,7 +6,7 @@ $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 inputs:
   - id: threads
-    type: int?
+    type: int
     'sbg:x': 232.9730682373047
     'sbg:y': -438.83319091796875
   - id: reference
