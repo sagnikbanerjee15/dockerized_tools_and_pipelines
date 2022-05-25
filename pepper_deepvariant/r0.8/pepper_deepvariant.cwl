@@ -11,14 +11,14 @@ inputs:
       position: 0
       prefix: '-b'
       shellQuote: false
-      valueFrom: self.basename
+      valueFrom: '${return self.basename}'
   - id: reference
     type: File
     inputBinding:
       position: 0
       prefix: '-f'
       shellQuote: false
-      valueFrom: self.basename
+      valueFrom: '${return self.basename}'
   - id: threads
     type: int?
     inputBinding:
