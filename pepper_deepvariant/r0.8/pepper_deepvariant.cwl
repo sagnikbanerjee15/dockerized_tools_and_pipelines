@@ -3,9 +3,7 @@ cwlVersion: v1.0
 $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 id: pepper_deepvariant
-baseCommand:
-  - run_pepper_margin_deepvariant
-  - call_variant
+baseCommand: []
 inputs:
   - id: reads_mapped_to_reference_bam
     type: File
@@ -13,12 +11,14 @@ inputs:
       position: 0
       prefix: '-b'
       shellQuote: false
+      valueFrom: self.basename
   - id: reference
     type: File
     inputBinding:
       position: 0
       prefix: '-f'
       shellQuote: false
+      valueFrom: self.basename
   - id: threads
     type: int?
     inputBinding:
@@ -42,6 +42,12 @@ arguments:
     prefix: '-o'
     shellQuote: false
     valueFrom: '${return "pepper_deepvariant_output"}'
+  - position: -1
+    prefix: ''
+    valueFrom: |-
+      ${
+          return "cp " + inputs.reference.path + " . && " + " samtools faidx " + inputs.reference.basename + " && cp " + inputs.reads_mapped_to_reference_bam.path + " . && samtools index " + inputs.reads_mapped_to_reference_bam.basename + " && run_pepper_margin_deepvariant call_variant "
+      }
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement
