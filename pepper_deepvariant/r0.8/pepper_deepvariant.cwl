@@ -31,6 +31,13 @@ inputs:
       position: 0
       prefix: '--ont_r10_q20'
       shellQuote: false
+  - 'sbg:toolDefaultValue': 'True'
+    id: only_pepper
+    type: boolean?
+    inputBinding:
+      position: 0
+      prefix: '--only_pepper'
+      shellQuote: false
 outputs:
   - id: PEPPER_VARIANT_FULL
     type: File?
