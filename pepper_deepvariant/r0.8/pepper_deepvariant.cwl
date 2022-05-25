@@ -25,7 +25,7 @@ inputs:
       prefix: '-t'
       shellQuote: false
   - id: ont_r10_q20
-    type: File?
+    type: boolean?
     inputBinding:
       position: 0
       prefix: '--ont_r10_q20'
