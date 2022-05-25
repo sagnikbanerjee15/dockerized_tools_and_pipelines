@@ -4,7 +4,8 @@ $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 id: pepper_deepvariant
 baseCommand:
-  - run_pepper_margin_deepvariant call_variant
+  - run_pepper_margin_deepvariant
+  - call_variant
 inputs:
   - id: reads_mapped_to_reference_bam
     type: File
