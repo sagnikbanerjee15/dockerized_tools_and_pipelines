@@ -19,8 +19,8 @@ inputs:
     'sbg:y': -436.1009216308594
   - id: gene_annotation_gtf
     type: File
-    'sbg:x': -531.9371948242188
-    'sbg:y': 34.0025520324707
+    'sbg:x': -544.1177368164062
+    'sbg:y': 88.54057312011719
 outputs:
   - id: output_log
     outputSource:
@@ -28,18 +28,39 @@ outputs:
     type: File?
     'sbg:x': 274.52288818359375
     'sbg:y': -95.91481018066406
-  - id: output_mapping_stats.log
+  - id: output_read_length_vs_number_of_times_mapped
     outputSource:
-      - compile_mapping_statistics/output_mapping_stats.log
+      - compile_mapping_statistics/output_read_length_vs_number_of_times_mapped
     type: File
-    'sbg:x': 1170.5467529296875
-    'sbg:y': -409.06195068359375
-  - id: output_mapping_stats
+    'sbg:x': 1336.2578125
+    'sbg:y': -455.9551696777344
+  - id: output_mapping_stats_log
     outputSource:
-      - compile_mapping_statistics/output_mapping_stats
+      - compile_mapping_statistics/output_mapping_stats_log
     type: File
-    'sbg:x': 1236.83203125
-    'sbg:y': -51.47052001953125
+    'sbg:x': 1374.71728515625
+    'sbg:y': -343.42572021484375
+  - id: output_hits_in_regions
+    outputSource:
+      - compile_mapping_statistics/output_hits_in_regions
+    type: File
+    'sbg:x': 1454.4849853515625
+    'sbg:y': -222.34976196289062
+  - id: >-
+      output_distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads
+    outputSource:
+      - >-
+        compile_mapping_statistics/output_distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads
+    type: File
+    'sbg:x': 1433.11865234375
+    'sbg:y': -10.110696792602539
+  - id: output_distribution_of_read_lengths_for_uniquely_mapped_reads
+    outputSource:
+      - >-
+        compile_mapping_statistics/output_distribution_of_read_lengths_for_uniquely_mapped_reads
+    type: File
+    'sbg:x': 1447.849609375
+    'sbg:y': 126.3492431640625
 steps:
   - id: minimap2
     in:
@@ -166,10 +187,14 @@ steps:
       - id: gene_annotation_gtf
         source: gene_annotation_gtf
     out:
-      - id: output_mapping_stats
-      - id: output_mapping_stats.log
+      - id: output_mapping_stats_log
+      - id: output_read_length_vs_number_of_times_mapped
+      - id: output_hits_in_regions
+      - id: output_distribution_of_read_lengths_for_uniquely_mapped_reads
+      - id: >-
+          output_distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads
     run: ./compile_mapping_statistics.cwl
     label: compile_mapping_statistics
-    'sbg:x': 1086.7984619140625
-    'sbg:y': -271.25787353515625
+    'sbg:x': 1234.3043212890625
+    'sbg:y': -240
 requirements: []
