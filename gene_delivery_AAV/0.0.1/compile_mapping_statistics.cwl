@@ -25,14 +25,28 @@ inputs:
       prefix: '--gene_annotation_gtf'
       shellQuote: false
 outputs:
-  - id: output_mapping_stats
+  - id: output_mapping_stats_log
     type: File
     outputBinding:
-      glob: '*mapping_stats'
-  - id: output_mapping_stats.log
+      glob: '*log'
+  - id: output_read_length_vs_number_of_times_mapped
     type: File
     outputBinding:
-      glob: '*mapping_stats.log'
+      glob: '*read_length_vs_number_of_times_mapped.pdf'
+  - id: output_hits_in_regions
+    type: File
+    outputBinding:
+      glob: '*hits_in_regions.csv'
+  - id: output_distribution_of_read_lengths_for_uniquely_mapped_reads
+    type: File
+    outputBinding:
+      glob: '*distribution_of_read_lengths_for_uniquely_mapped_reads.pdf'
+  - id: >-
+      output_distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads
+    type: File
+    outputBinding:
+      glob: >-
+        *distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads.pdf
 label: compile_mapping_statistics
 arguments:
   - position: 0
