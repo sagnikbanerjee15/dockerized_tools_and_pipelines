@@ -19,7 +19,7 @@ inputs:
       prefix: '--name_of_coverage_bed'
       shellQuote: false
   - id: gene_annotation_gtf
-    type: File?
+    type: File
     inputBinding:
       position: 0
       prefix: '--gene_annotation_gtf'
