@@ -18,18 +18,18 @@ inputs:
     'sbg:x': -541.826171875
     'sbg:y': -436.1009216308594
 outputs:
-  - id: output_sam
-    outputSource:
-      - rearrange_spurious_alignments/output_sam
-    type: File?
-    'sbg:x': 260.30303955078125
-    'sbg:y': -348.71209716796875
   - id: output_log
     outputSource:
       - rearrange_spurious_alignments/output_log
     type: File?
     'sbg:x': 274.52288818359375
     'sbg:y': -95.91481018066406
+  - id: output_bed
+    outputSource:
+      - bedtools_genomecoveragebed/output_bed
+    type: File?
+    'sbg:x': 994.8214721679688
+    'sbg:y': -142.8577880859375
 steps:
   - id: minimap2
     in:
@@ -103,4 +103,48 @@ steps:
     label: rearrange_spurious_alignments
     'sbg:x': 155.3823699951172
     'sbg:y': -234.779296875
+  - id: samtools_view_1
+    in:
+      - id: input_alignment
+        source: rearrange_spurious_alignments/output_sam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-view.cwl
+    label: samtools view
+    'sbg:x': 416.7309265136719
+    'sbg:y': -237.75343322753906
+  - id: samtools_sort_1
+    in:
+      - id: input_alignment
+        source: samtools_view_1/output_bam
+      - id: output_format
+        default: BAM
+      - id: threads
+        source: threads
+    out:
+      - id: output_bam
+      - id: output_sam
+      - id: output_cram
+    run: ../../samtools/1.14/samtools-sort.cwl
+    label: samtools sort
+    'sbg:x': 634.7960205078125
+    'sbg:y': -265.77593994140625
+  - id: bedtools_genomecoveragebed
+    in:
+      - id: ibam
+        source: samtools_sort_1/output_bam
+      - id: bga
+        default: true
+    out:
+      - id: output_bed
+    run: ../../bedtools/2.27.1/bedtools-genomecoveragebed.cwl
+    label: bedtools genomecoveragebed
+    'sbg:x': 839.0768432617188
+    'sbg:y': -225.31082153320312
 requirements: []
