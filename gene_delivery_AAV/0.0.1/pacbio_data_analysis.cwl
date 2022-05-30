@@ -20,10 +20,16 @@ inputs:
 outputs:
   - id: output_sam
     outputSource:
-      - samtools_sort/output_sam
+      - rearrange_spurious_alignments/output_sam
     type: File?
-    'sbg:x': 83.34493255615234
-    'sbg:y': -140.1543426513672
+    'sbg:x': 260.30303955078125
+    'sbg:y': -348.71209716796875
+  - id: output_log
+    outputSource:
+      - rearrange_spurious_alignments/output_log
+    type: File?
+    'sbg:x': 274.52288818359375
+    'sbg:y': -95.91481018066406
 steps:
   - id: minimap2
     in:
@@ -86,4 +92,15 @@ steps:
     label: samtools sort
     'sbg:x': -67.15911102294922
     'sbg:y': -218.6595458984375
+  - id: rearrange_spurious_alignments
+    in:
+      - id: name_sorted_sam_alignment_file
+        source: samtools_sort/output_sam
+    out:
+      - id: output_log
+      - id: output_sam
+    run: ./rearrange_spurious_alignments.cwl
+    label: rearrange_spurious_alignments
+    'sbg:x': 155.3823699951172
+    'sbg:y': -234.779296875
 requirements: []
