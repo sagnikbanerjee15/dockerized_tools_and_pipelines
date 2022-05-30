@@ -25,7 +25,7 @@ RUN pip install ruffus
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 ARG AAV_VERSION=1.1.0
 RUN mkdir -p /software && cd /software && \
-	git clone https://biogit.pri.bms.com/baners23/AAV_STEALTH.git &&\
+	git clone git@biogit.pri.bms.com:baners23/AAV_STEALTH.git &&\
 	cd AAV_STEALTH	
 	
 ENV PATH=${PATH}:/software/AAV_STEALTH
