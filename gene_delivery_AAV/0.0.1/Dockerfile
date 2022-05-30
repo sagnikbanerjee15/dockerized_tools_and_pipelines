@@ -35,8 +35,8 @@ RUN apt-get install -y git
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN mkdir /softwares && \
 	cd /softwares && \
-	git clone https://biogit.pri.bms.com/baners23/AAV_STEALTH.git && \
-	cd AAV_STEALTH && \
+	git clone https://biogit.pri.bms.com/baners23/AAV.git && \
+	cd AAV && \
 	chmod a+x *
 	
 ENV PATH=$PATH:/softwares/AAV_STEALTH
