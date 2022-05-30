@@ -52,3 +52,4 @@ requirements:
   - class: DockerRequirement
     dockerPull: >-
       ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/gene_delivery_aav:0.0.1
+  - class: InlineJavascriptRequirement
