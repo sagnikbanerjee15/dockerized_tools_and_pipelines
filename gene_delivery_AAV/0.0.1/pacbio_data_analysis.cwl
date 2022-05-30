@@ -14,7 +14,7 @@ inputs:
     'sbg:x': -546.6011352539062
     'sbg:y': -145.5
   - id: threads
-    type: int?
+    type: int
     'sbg:x': -541.826171875
     'sbg:y': -436.1009216308594
   - id: gene_annotation_gtf
