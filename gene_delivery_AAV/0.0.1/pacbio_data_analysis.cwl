@@ -17,7 +17,13 @@ inputs:
     type: int?
     'sbg:x': -541.826171875
     'sbg:y': -436.1009216308594
-outputs: []
+outputs:
+  - id: output_sam
+    outputSource:
+      - samtools_sort/output_sam
+    type: File?
+    'sbg:x': 83.34493255615234
+    'sbg:y': -140.1543426513672
 steps:
   - id: minimap2
     in:
