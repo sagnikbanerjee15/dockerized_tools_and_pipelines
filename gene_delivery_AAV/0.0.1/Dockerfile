@@ -39,5 +39,5 @@ RUN mkdir /softwares && \
 	cd AAV && \
 	chmod a+x *
 	
-ENV PATH=$PATH:/softwares/AAV_STEALTH
+ENV PATH=$PATH:/softwares/AAV
 
