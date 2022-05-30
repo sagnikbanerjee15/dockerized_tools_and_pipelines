@@ -17,6 +17,10 @@ inputs:
     type: int?
     'sbg:x': -541.826171875
     'sbg:y': -436.1009216308594
+  - id: gene_annotation_gtf
+    type: File
+    'sbg:x': -531.9371948242188
+    'sbg:y': 34.0025520324707
 outputs:
   - id: output_log
     outputSource:
@@ -28,14 +32,14 @@ outputs:
     outputSource:
       - compile_mapping_statistics/output_mapping_stats.log
     type: File
-    'sbg:x': 1090.2872314453125
-    'sbg:y': -445.6927185058594
+    'sbg:x': 1170.5467529296875
+    'sbg:y': -409.06195068359375
   - id: output_mapping_stats
     outputSource:
       - compile_mapping_statistics/output_mapping_stats
     type: File
-    'sbg:x': 1126.9185791015625
-    'sbg:y': -231.13787841796875
+    'sbg:x': 1236.83203125
+    'sbg:y': -51.47052001953125
 steps:
   - id: minimap2
     in:
@@ -159,11 +163,13 @@ steps:
         source: rearrange_spurious_alignments/output_sam
       - id: name_of_coverage_bed
         source: bedtools_genomecoveragebed/output_bed
+      - id: gene_annotation_gtf
+        source: gene_annotation_gtf
     out:
       - id: output_mapping_stats
       - id: output_mapping_stats.log
     run: ./compile_mapping_statistics.cwl
     label: compile_mapping_statistics
-    'sbg:x': 944.159912109375
-    'sbg:y': -350.1114807128906
+    'sbg:x': 1086.7984619140625
+    'sbg:y': -271.25787353515625
 requirements: []
