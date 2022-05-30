@@ -24,6 +24,7 @@ RUN apt-get install -y libz-dev ncurses-dev liblzma-dev libbz2-dev libcurl4-open
 
 RUN apt-get install -y python3-pip
 RUN pip3 install ruffus
+RUN pip3 install numpy
 
 
 #######################################################################################################################################################################
