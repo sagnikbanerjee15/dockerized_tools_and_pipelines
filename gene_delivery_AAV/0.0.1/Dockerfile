@@ -35,7 +35,7 @@ RUN apt-get install -y git
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN mkdir /softwares && \
 	cd /softwares && \
-	git clone git@biogit.pri.bms.com:baners23/AAV.git && \
+	git clone https://biogit.pri.bms.com/baners23/AAV.git && \
 	cd AAV && \
 	chmod a+x *
 	
