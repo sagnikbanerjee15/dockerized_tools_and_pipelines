@@ -24,12 +24,18 @@ outputs:
     type: File?
     'sbg:x': 274.52288818359375
     'sbg:y': -95.91481018066406
-  - id: output_bed
+  - id: output_mapping_stats.log
     outputSource:
-      - bedtools_genomecoveragebed/output_bed
-    type: File?
-    'sbg:x': 994.8214721679688
-    'sbg:y': -142.8577880859375
+      - compile_mapping_statistics/output_mapping_stats.log
+    type: File
+    'sbg:x': 1090.2872314453125
+    'sbg:y': -445.6927185058594
+  - id: output_mapping_stats
+    outputSource:
+      - compile_mapping_statistics/output_mapping_stats
+    type: File
+    'sbg:x': 1126.9185791015625
+    'sbg:y': -231.13787841796875
 steps:
   - id: minimap2
     in:
@@ -147,4 +153,17 @@ steps:
     label: bedtools genomecoveragebed
     'sbg:x': 839.0768432617188
     'sbg:y': -225.31082153320312
+  - id: compile_mapping_statistics
+    in:
+      - id: name_sorted_sam_alignment_file
+        source: rearrange_spurious_alignments/output_sam
+      - id: name_of_coverage_bed
+        source: bedtools_genomecoveragebed/output_bed
+    out:
+      - id: output_mapping_stats
+      - id: output_mapping_stats.log
+    run: ./compile_mapping_statistics.cwl
+    label: compile_mapping_statistics
+    'sbg:x': 944.159912109375
+    'sbg:y': -350.1114807128906
 requirements: []
