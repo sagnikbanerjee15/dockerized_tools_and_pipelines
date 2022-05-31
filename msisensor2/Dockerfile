@@ -26,8 +26,7 @@ RUN pip3 install numpy matplotlib seaborn
 RUN apt-get install -y git
 
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-RUN mkdir /softwares && \
-	cd /softwares && \
+RUN cd /softwares && \
 	git clone https://github.com/niu-lab/msisensor2.git && \
 	cd msisensor2 && \
 	chmod a+x *
