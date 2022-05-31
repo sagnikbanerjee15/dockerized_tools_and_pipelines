@@ -2,7 +2,7 @@
 # Gene Delivery AAV
 #######################################################################################################################################################################
 
-FROM ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines/samtools:1.14
+FROM ubuntu
 LABEL maintainer="sagnikbanerjee15@gmail.com" 
 LABEL org.opencontainers.image.source https://github.com/sagnikbanerjee15/dockerized_tools_and_pipelines
 
