@@ -33,6 +33,10 @@ outputs:
     type: File?
     outputBinding:
       glob: '*sam'
+  - id: output_fusion_reads
+    type: File?
+    outputBinding:
+      glob: '*fusion_reads.csv'
 label: rearrange_spurious_alignments
 arguments:
   - position: 0

@@ -22,12 +22,6 @@ inputs:
     'sbg:x': -544.1177368164062
     'sbg:y': 88.54057312011719
 outputs:
-  - id: output_log
-    outputSource:
-      - rearrange_spurious_alignments/output_log
-    type: File?
-    'sbg:x': 274.52288818359375
-    'sbg:y': -95.91481018066406
   - id: output_read_length_vs_number_of_times_mapped
     outputSource:
       - compile_mapping_statistics/output_read_length_vs_number_of_times_mapped
@@ -61,6 +55,18 @@ outputs:
     type: File
     'sbg:x': 1200
     'sbg:y': 29.488462448120117
+  - id: output_fusion_reads
+    outputSource:
+      - rearrange_spurious_alignments_1/output_fusion_reads
+    type: File?
+    'sbg:x': 391.7728576660156
+    'sbg:y': 29.47573471069336
+  - id: output_log
+    outputSource:
+      - rearrange_spurious_alignments_1/output_log
+    type: File?
+    'sbg:x': 358.6618957519531
+    'sbg:y': -377.83929443359375
 steps:
   - id: minimap2
     in:
@@ -123,21 +129,10 @@ steps:
     label: samtools sort
     'sbg:x': -67.15911102294922
     'sbg:y': -218.6595458984375
-  - id: rearrange_spurious_alignments
-    in:
-      - id: name_sorted_sam_alignment_file
-        source: samtools_sort/output_sam
-    out:
-      - id: output_log
-      - id: output_sam
-    run: ./rearrange_spurious_alignments.cwl
-    label: rearrange_spurious_alignments
-    'sbg:x': 155.3823699951172
-    'sbg:y': -234.779296875
   - id: samtools_view_1
     in:
       - id: input_alignment
-        source: rearrange_spurious_alignments/output_sam
+        source: rearrange_spurious_alignments_1/output_sam
       - id: output_format
         default: BAM
       - id: threads
@@ -181,7 +176,7 @@ steps:
   - id: compile_mapping_statistics
     in:
       - id: name_sorted_sam_alignment_file
-        source: rearrange_spurious_alignments/output_sam
+        source: rearrange_spurious_alignments_1/output_sam
       - id: name_of_coverage_bed
         source: bedtools_genomecoveragebed/output_bed
       - id: gene_annotation_gtf
@@ -197,4 +192,16 @@ steps:
     label: compile_mapping_statistics
     'sbg:x': 1079.042236328125
     'sbg:y': -234.30230712890625
+  - id: rearrange_spurious_alignments_1
+    in:
+      - id: name_sorted_sam_alignment_file
+        source: samtools_sort/output_sam
+    out:
+      - id: output_log
+      - id: output_sam
+      - id: output_fusion_reads
+    run: ./rearrange_spurious_alignments.cwl
+    label: rearrange_spurious_alignments
+    'sbg:x': 207.8070526123047
+    'sbg:y': -184.1929168701172
 requirements: []
