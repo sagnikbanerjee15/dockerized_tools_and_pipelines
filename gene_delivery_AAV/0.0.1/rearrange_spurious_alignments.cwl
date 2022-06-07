@@ -47,6 +47,11 @@ arguments:
     valueFrom: >-
       ${return inputs.name_sorted_sam_alignment_file.nameroot +
       "_remove_spurious_alignment.log"}
+  - position: 0
+    prefix: '--fusion_read_output_filename'
+    valueFrom: >-
+      ${return inputs.name_sorted_sam_alignment_file.nameroot +
+      "_fusion_reads.csv"}
 requirements:
   - class: ShellCommandRequirement
   - class: DockerRequirement

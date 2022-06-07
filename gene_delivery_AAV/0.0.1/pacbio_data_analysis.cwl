@@ -32,35 +32,35 @@ outputs:
     outputSource:
       - compile_mapping_statistics/output_read_length_vs_number_of_times_mapped
     type: File
-    'sbg:x': 1336.2578125
-    'sbg:y': -455.9551696777344
+    'sbg:x': 1240.5635986328125
+    'sbg:y': -467.81982421875
   - id: output_mapping_stats_log
     outputSource:
       - compile_mapping_statistics/output_mapping_stats_log
     type: File
-    'sbg:x': 1374.71728515625
-    'sbg:y': -343.42572021484375
+    'sbg:x': 1289.958984375
+    'sbg:y': -338.72674560546875
   - id: output_hits_in_regions
     outputSource:
       - compile_mapping_statistics/output_hits_in_regions
     type: File
-    'sbg:x': 1454.4849853515625
-    'sbg:y': -222.34976196289062
+    'sbg:x': 1325.8018798828125
+    'sbg:y': -222
   - id: >-
       output_distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads
     outputSource:
       - >-
         compile_mapping_statistics/output_distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads
     type: File
-    'sbg:x': 1433.11865234375
-    'sbg:y': -10.110696792602539
+    'sbg:x': 1282.0111083984375
+    'sbg:y': -113.98289489746094
   - id: output_distribution_of_read_lengths_for_uniquely_mapped_reads
     outputSource:
       - >-
         compile_mapping_statistics/output_distribution_of_read_lengths_for_uniquely_mapped_reads
     type: File
-    'sbg:x': 1447.849609375
-    'sbg:y': 126.3492431640625
+    'sbg:x': 1200
+    'sbg:y': 29.488462448120117
 steps:
   - id: minimap2
     in:
@@ -195,6 +195,6 @@ steps:
           output_distribution_of_read_lengths_for_uniquely_mapped_vs_multi_mapped_reads
     run: ./compile_mapping_statistics.cwl
     label: compile_mapping_statistics
-    'sbg:x': 1234.3043212890625
-    'sbg:y': -240
+    'sbg:x': 1079.042236328125
+    'sbg:y': -234.30230712890625
 requirements: []
