@@ -16,7 +16,7 @@ def parseCommandLineArguments():
 
     parser = argparse.ArgumentParser( prog = "create_docker_images", description = """Generates docker images and pushes those to registries""", formatter_class = RawTextHelpFormatter )
 
-    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines", "483421617021.dkr.ecr.us-east-1.amazonaws.com"], nargs = '+' )
+    parser.add_argument( "--docker_hub", "-docker_hub", help = "Enter the name of the docker hub", default = ["ghcr.io/sagnikbanerjee15/dockerized_tools_and_pipelines"], nargs = '+' )
     parser.add_argument( "--error_directory", "-error_directory", help = "Enter the location of the error directory", required = True )
 
     # Optional arguments
@@ -81,9 +81,7 @@ def main():
 
                 if options.only_pull == False:
                     for docker_hub in options.docker_hub:
-                        if "483421617021" in docker_hub:
-                            cmd = f"docker build -t {docker_hub}/baners23/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
-                        elif "ghcr" in docker_hub:
+                        if "ghcr" in docker_hub:
                             cmd = f"docker build -t {docker_hub}/{tool.lower()}:{version} . > {options.error_directory}/{tool}:{version}_docker_build.output 2> {options.error_directory}/{tool}:{version}_docker_build.error"
                         print( f"Building {tool} {version}. Executing command - {cmd} from {os.getcwd()}" )
                         sys.stdout.flush()
@@ -93,19 +91,14 @@ def main():
 
     # Perform push operation for each kind of hub
     for docker_hub in options.docker_hub:
-        if "483421617021" in docker_hub:
-            os.system( f"aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 483421617021.dkr.ecr.us-east-1.amazonaws.com" )
-        elif "ghcr" in docker_hub:
+        if "ghcr" in docker_hub:
             os.environ["CR_PAT"] = github_token
             os.system( f"echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin" )
         for tool in tools_with_version_and_dockerfiles:
             if options.skip_these is not None and tool in options.skip_these: continue
             for version in tools_with_version_and_dockerfiles[tool]:
                 if options.only_pull == False:
-                    if "483421617021" in docker_hub:
-                        os.system( f"aws ecr create-repository --repository-name baners23/{tool.lower()}" )
-                        cmd = f"docker push {docker_hub}/baners23/{tool.lower()}:{version}"
-                    elif "ghcr" in docker_hub:
+                    if "ghcr" in docker_hub:
                         cmd = f"docker push {docker_hub}/{tool.lower()}:{version}"
                     print( cmd )
                     os.system( cmd )
