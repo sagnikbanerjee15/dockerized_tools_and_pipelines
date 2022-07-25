@@ -23,7 +23,7 @@ def parseCommandLineArguments():
     parser.add_argument( "--only_pull", "-only_pull", help = "Only pull from ghcr do not push", action = "store_true" )
     parser.add_argument( "--skip_these", "-skip_these", help = "Enter the list of tools to skip processing", nargs = '*' )
     parser.add_argument( "--process_only_these", "-process_only_these", help = "Enter the list of tools to process. Everything else will be ignored", nargs = '*' )
-    # parser.add_argument( "--only_test_cwl_scripts", "-only_test_cwl_scripts", help = "Perform CWL tests", action = "store_true" )
+    # parser.add_argument( "--only_test_cwl_scripts", "-only_test_cwl_scripts", help = "Perform CWL tests", action = "store_true
     return parser.parse_args()
 
 
