@@ -31,7 +31,7 @@ RUN mkdir -p /softwares && \
     tar -zxvf boost_${BOOST_VERSION}.tar.gz && \
     cd boost_${BOOST_VERSION} && \
     ./bootstrap.sh && \
-    ./b2 install --prefix=/softwares/boost_${BOOST_VERSION}
+    ./b2 install --prefix=/softwares/boost_installation
     
 ENV PATH /softwares/boost_${BOOST_VERSION}:${PATH}
     
@@ -58,7 +58,7 @@ RUN mkdir -p /softwares && \
 #	cd /softwares && \
 #	git clone https://github.com/yutingsdu/TransMeta.git && \
 #	cd TransMeta/src && \
-#	make all BOOST_PATH=/softwares/boost_${BOOST_VERSION} BAMTOOLS_PATH=/softwares/bamtools_installed
+#	make all BOOST_PATH=/softwares/boost_installation BAMTOOLS_PATH=/softwares/bamtools_installed
 	
 
 ENV PATH /softwares/STAR-${VERSION}/source:${PATH}
