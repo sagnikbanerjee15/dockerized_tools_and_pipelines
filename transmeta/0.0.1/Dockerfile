@@ -56,7 +56,7 @@ ARG VERSION=0.0.1
 RUN mkdir -p /softwares && \
 	cd /softwares && \
 	git clone https://github.com/yutingsdu/TransMeta.git && \
-	cd src && \
+	cd TransMeta/src && \
 	make all BOOST_PATH=boost_${BOOST_VERSION} BAMTOOLS_PATH=/softwares/bamtools_installed
 	
 
