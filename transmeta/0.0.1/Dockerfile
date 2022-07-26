@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y lsb-release software-properties-common 
 RUN add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) main universe"
 RUN apt-get --quiet install --yes zip unzip rsync sudo htop vim less locales locales-all perl python3 rsync zip \
 		  fuse wget curl make zlib1g-dev libffi-dev libncurses5-dev libcurl4-gnutls-dev libssl-dev cmake python3-all-dev \
-		  build-essential zlib1g-dev libncurses5-dev gcc g++
+		  build-essential zlib1g-dev libncurses5-dev gcc g++ git
 RUN apt-get clean
 
 #######################################################################################################################################################################
