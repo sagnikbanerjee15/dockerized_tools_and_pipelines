@@ -30,7 +30,8 @@ RUN mkdir -p /softwares && \
     wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_${BOOST_VERSION}.tar.gz && \
     tar -zxvf boost_${BOOST_VERSION}.tar.gz && \
     cd boost_${BOOST_VERSION} && \
-    ./bootstrap.sh
+    ./bootstrap.sh && \
+    ./b2 install --prefix=/softwares/boost_${BOOST_VERSION}
     
 ENV PATH /softwares/boost_${BOOST_VERSION}:${PATH}
     
