@@ -47,7 +47,7 @@ RUN mkdir -p /softwares && \
 	cd bamtools && \
 	mkdir build && \
 	cd build && \
-	cmake -DCMAKE_INSTALL_PREFIX=/softwares/bamtools_installed .. && \
+	cmake -DCMAKE_INSTALL_PREFIX=/softwares/bamtools_installation .. && \
 	make && make install
 
 #######################################################################################################################################################################
@@ -59,7 +59,7 @@ RUN mkdir -p /softwares && \
 	cd /softwares && \
 	git clone https://github.com/yutingsdu/TransMeta.git && \
 	cd TransMeta/src && \
-	make all BOOST_PATH=/softwares/boost_installation BAMTOOLS_PATH=/softwares/bamtools_installed
+	make all BOOST_PATH=/softwares/boost_installation BAMTOOLS_PATH=/softwares/bamtools_installation
 	
 
 ENV PATH /softwares/TransMeta:${PATH}
