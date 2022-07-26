@@ -34,7 +34,7 @@ RUN mkdir -p /softwares && \
     ./bootstrap.sh && \
     ./b2 install --prefix=/softwares/boost_installation
     
-ENV PATH /softwares/boost_${BOOST_VERSION}:${PATH}
+ENV PATH /softwares/boost_installation:${PATH}
     
 
 #######################################################################################################################################################################
@@ -62,4 +62,5 @@ RUN mkdir -p /softwares && \
 	make all BOOST_PATH=/softwares/boost_installation BAMTOOLS_PATH=/softwares/bamtools_installed
 	
 
-ENV PATH /softwares/STAR-${VERSION}/source:${PATH}
+ENV PATH /softwares/TransMeta:${PATH}
+ENV LD_LIBRARY_PATH /softwares/boost_installation/lib:$LD_LIBRARY_PATH
