@@ -54,12 +54,12 @@ RUN mkdir -p /softwares && \
 # Transmeta
 #######################################################################################################################################################################
 
-#ARG VERSION=0.0.1
-#RUN mkdir -p /softwares && \
-#	cd /softwares && \
-#	git clone https://github.com/yutingsdu/TransMeta.git && \
-#	cd TransMeta/src && \
-#	make all BOOST_PATH=/softwares/boost_installation BAMTOOLS_PATH=/softwares/bamtools_installed
+ARG VERSION=0.0.1
+RUN mkdir -p /softwares && \
+	cd /softwares && \
+	git clone https://github.com/yutingsdu/TransMeta.git && \
+	cd TransMeta/src && \
+	make all BOOST_PATH=/softwares/boost_installation BAMTOOLS_PATH=/softwares/bamtools_installed
 	
 
 ENV PATH /softwares/STAR-${VERSION}/source:${PATH}
