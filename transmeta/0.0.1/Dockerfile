@@ -24,7 +24,7 @@ RUN apt-get clean
 # Boost
 #######################################################################################################################################################################
 
-ARG BOOST_VERSION=1_61_0
+ARG BOOST_VERSION=1_55_0
 RUN apt-get install -y autotools-dev libicu-dev libbz2-dev libboost-all-dev
 RUN mkdir -p /softwares && \
     cd /softwares && \
