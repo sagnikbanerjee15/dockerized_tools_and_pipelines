@@ -24,7 +24,7 @@ RUN apt-get clean
 # Boost
 #######################################################################################################################################################################
 
-RUN apt-get install libboost-all-dev
+RUN apt-get install -y libboost-all-dev
 
 #ARG BOOST_VERSION=1_61_0
 #RUN mkdir -p /softwares && \
