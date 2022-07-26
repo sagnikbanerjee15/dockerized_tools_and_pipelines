@@ -24,14 +24,16 @@ RUN apt-get clean
 # Boost
 #######################################################################################################################################################################
 
-ARG BOOST_VERSION=1_61_0
-RUN mkdir -p /softwares && \
-    cd /softwares && \
-    wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_${BOOST_VERSION}.tar.gz && \
-    tar -zxvf boost_${BOOST_VERSION}.tar.gz && \
-    cd boost_${BOOST_VERSION} && \
-    ./bootstrap.sh && \
-    ./b2 install --prefix=/softwares/boost_installation
+RUN apt-get install libboost-all-dev
+
+#ARG BOOST_VERSION=1_61_0
+#RUN mkdir -p /softwares && \
+#    cd /softwares && \
+#    wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_${BOOST_VERSION}.tar.gz && \
+#    tar -zxvf boost_${BOOST_VERSION}.tar.gz && \
+#    cd boost_${BOOST_VERSION} && \
+#    ./bootstrap.sh && \
+#    ./b2 install --prefix=/softwares/boost_installation
     
 ENV PATH /softwares/boost_${BOOST_VERSION}:${PATH}
     
