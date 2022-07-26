@@ -25,7 +25,7 @@ RUN apt-get clean
 #######################################################################################################################################################################
 
 ARG BOOST_VERSION=1_61_0
-RUN apt-get install python-dev autotools-dev libicu-dev libbz2-dev libboost-all-dev
+RUN apt-get install autotools-dev libicu-dev libbz2-dev libboost-all-dev
 RUN mkdir -p /softwares && \
     cd /softwares && \
     wget https://sourceforge.net/projects/boost/files/boost/1.61.0/boost_${BOOST_VERSION}.tar.gz && \
